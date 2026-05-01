@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/adminPannel.css">
+    <link rel="stylesheet" href="../css/adminPannelHome.css">
+    <link rel="icon" href="../sf.webp" type="image/webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body id="adminHome">
+    <header>
+        <div class="businessLogo">
+            <img src="">
+        </div>
+        <div class="navBurger">
+            <i id="menu" class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+    <div class="navContainer">
+        <nav>
+            <h2>Navigation</h2>
+            <ul class="navigations">
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-home"></i>
+                        <h6>Home</h6>
+                        <span class="underline active-nav"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./admin/users.html">
+                        <i class="fa-solid fa-user"></i>
+                        <h6>Users</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./admin/products.html">
+                        <i class="fa-solid fa-box"></i>
+                        <h6>Products</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./admin/orders.html">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <h6>Orders</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./admin/faqs.html">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <h6>FAQs</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./admin/reviews.html">
+                        <i class="fa-solid fa-star"></i>
+                        <h6>Reviews</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+            </ul>
+            <h4>Content Nav</h4>
+            <ul class="navigations">
+                <li>
+                    <a id="LogOutBtn" href="#">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <h6>LogOut</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <main class="contentContainer">
+        <div class="mainContent">
+            <h1>StreetFlex</h1>
+            <h3>Admin Panel</h3>
+            <div class="mainContentWrapper">
+
+            <div class="groupCards">
+                <a href="./admin/orders.html" class="cardContainer">
+                    <div class="cardHeader"><h5>Current Orders</h5></div>
+                    <div class="cardBody"><p id="total_current">7</p></div>
+                </a>
+                <a href="./admin/orders.html" class="cardContainer">
+                    <div class="cardHeader"><h5>This Month Sales</h5></div>
+                    <div class="cardBody"><p id="this_month_sales">₱24500</p></div>
+                </a>
+                <a href="./admin/orders.html" class="cardContainer">
+                    <div class="cardHeader"><h5>Pending Refunds</h5></div>
+                    <div class="cardBody"><p id="total_pending_refunds">2</p></div>
+                </a>
+            </div>
+
+            <div class="groupCards">
+                <a href="./admin/users.html" class="cardContainer">
+                    <div class="cardHeader"><h5>Total Admins</h5></div>
+                    <div class="cardBody"><p id="total_admins">2</p></div>
+                </a>
+                <a href="./admin/users.html" class="cardContainer">
+                    <div class="cardHeader"><h5>Total Customers</h5></div>
+                    <div class="cardBody"><p id="total_customers">5</p></div>
+                </a>
+                <a href="./admin/users.html" class="cardContainer">
+                    <div class="cardHeader"><h5>Banned Users</h5></div>
+                    <div class="cardBody"><p id="total_banned">1</p></div>
+                </a>
+            </div>
+
+            <div class="groupCards">
+                <a href="./admin/products.html" class="cardContainer">
+                    <div class="cardHeader"><h5>Activen Product</h5></div>
+                    <div class="cardBody"><p id="total_active">12</p></div>
+                </a>
+                <a href="./admin/products.html"  class="cardContainer">
+                    <div class="cardHeader"><h5>Inactive Product</h5></div>
+                    <div class="cardBody"><p id="total_inactive">4</p></div>
+                </a>
+            </div>
+
+            <div class="groupCards">
+                <a href="./admin/faqs.html"  class="cardContainer">
+                    <div class="cardHeader"><h5>Pending FAQs</h5></div>
+                    <div class="cardBody"><p id="total_pending_FAQs">5</p></div>
+                </a>
+                <a href="./admin/reviews.html"  class="cardContainer">
+                    <div class="cardHeader"><h5>Pending Reviews</h5></div>
+                    <div class="cardBody"><p id="total_pending_reviews">5</p></div>
+                </a>
+            </div>
+        </div>
+            <footer>
+                <h6>Lets have a productive day Team!</h6>
+            </footer>
+        </div>
+    </main>
+    <script src="../js/pages/adminPannel.js"></script>
+    <script src="../js/pages/admin/home.js"></script>
+</body>
+</html>

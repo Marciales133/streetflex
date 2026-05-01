@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/FAQ.css">
+    <link rel="icon" href="../sf.webp" type="image/webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    <title>StreetFlex | FAQs</title>
+</head>
+<body>
+    <header>
+        <a href="./userPortfolio.html" class="userProfileContainer">
+            <div class="image-container userIcon">
+                <img id="UserAvatar" src="../assets/default_user_icon/defaultUserIcon.png" alt="User Avatar">
+            </div>
+            <div class="userNameAndEmail">
+                <h6 id="UserName"></h6>
+                <p id="UserEmail"></p>
+            </div>
+        </a>
+        <div class="spacer"></div>
+        <div class="search-container">
+            <div class="searchWrapper">
+                <div class="search-box">
+                    <input type="text" id="search" placeholder="Search...">
+                    <ul id="suggestions"></ul>
+                </div>
+                <i id="searchButton" class="fa-solid fa-search"></i>
+            </div>
+        </div>
+        <div class="navBurger">
+            <i id="menu" class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <div class="navContainer">
+        <nav>
+            <h3>Navigation</h3>
+            <ul class="navigations">
+                <li>
+                    <a href="../index.html">
+                        <i class="fa-solid fa-house"></i><h6>Home</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="./galery.html">
+                        <i class="fa-solid fa-images"></i><h6>Gallery</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="./reviews.html">
+                        <i class="fa-solid fa-star"></i><h6>Reviews</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="./FAQs.html">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <h6>FAQs</h6>
+                        <span class="underline active-nav"></span>
+                    </a>
+                </li>
+            </ul>
+            <h5>My Activities</h5>
+            <ul class="navigations">
+                <li>
+                    <a href="./notification.html">
+                        <i class="fa-solid fa-bell"></i>
+                        <h6>Notification <span id="newNotifCount"></span></h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./cart.html">
+                        <i class="fa-solid fa-cart-shopping"></i><h6>Cart</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./wishlist.html">
+                        <i class="fa-solid fa-heart"></i><h6>WishList</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./orders.html">
+                        <i class="fa-solid fa-box"></i><h6>Orders</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./userPortfolio.html">
+                        <i class="fa-solid fa-user"></i><h6>My Profile</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a id="signOutUser" href="#">
+                        <i class="fa-solid fa-right-from-bracket"></i><h6>Sign Out</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="contentContainer">
+        <div class="mainContent">
+            <section class="contentSection askSection">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>ASK AWAY</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <div class="askContainer">
+                    <div class="askQuestionWrapper">
+                        <h6>Got Questions?</h6>
+                        <p>Ask us anything! We're here to help.</p>
+                        <textarea cols="15" name="" id=""></textarea>
+                        <button class="btn">Submit Question</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contentSection answerSection">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>ANSWERS</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <div class="answerContainer">
+                </div>
+            </section>
+            
+            <section class="contentSection FaqSection">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>FAQs</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <div class="FaqContainer">
+                    <div class="FaqWrapper">
+                        <p>
+                            Here are some questions you might have in 
+                            regard to our site. If you have other 
+                            questions, you can contact us directly here
+                        </p>
+                        <div class="genQuestionWrapper">
+                            <h6>Orders & Payments</h6>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>How do I place an order and what payment methods are accepted?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>One of many ways of ordering is by going to the Gallery page and looking for the item you like and then clicking for the order button, and as of now the only payment method available is COD.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>Can I modify or cancel my order after placing it?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>Yes, you can cancel your order as long as its not yet on "ready to be delivered" status. for modification on the other hand, you need to cancel it first and order again.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>How do I apply a discount code to my order?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>As of now the system isnt capable of applying discounts, but prices are dynamically changed.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="genQuestionWrapper">
+                            <h6>Shipping & Delivery</h6>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>How long does shipping take and how much does it cost?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>It all depends on the distance between the shop and the customer location but typically once its out for delivery it would be delivered the same day. the fee is also tied to the distance.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>How do I track my order?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>The system constantly updates you about your order status and you can also directly contact the shop via our official socials for inqueries.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>Do you ship nationwide across the Philippines?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>Unfortunately we are only able to ship within Central Luzon.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="genQuestionWrapper">
+                            <h6>Returns & Refunds</h6>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>What is StreetFlex's return and refund policy?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>As long as there is enough proof that the fault is with us via a video proof.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>How do I request a refund for my order?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>Below, you can make a request by filling up the refund form.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>How long does a refund take to process?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>Within the Day or Two a respond will be given.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="genQuestionWrapper">
+                            <h6>Products & Account</h6>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>How do I know which size to order?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>We are using the standard sizing for our sizes.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>Are all StreetFlex products authentic?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>Yes, we are authorized distributor and we also offer Original Products.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>How do I update my profile, address, or account details?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>its as easy as clicking the user icon above or through profile page at the naviation area.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="genQuestionWrapper">
+                            <h6>Support & Policies</h6>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>How do I contact StreetFlex customer support?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>You can contact us Via Our hotline, or our Official Social Media down at the very end of each page.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>Where can I find your Privacy Policy and Terms of Service?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>You can see it at the very end of each page.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdownContainer">
+                                <div class="dropdownQuestion">
+                                    <p>What should I do if I have an issue with my order?</p>
+                                    <i class="fa-solid fa-chevron-down dropdownIcon"></i>
+                                </div>
+
+                                <div class="dropdownAnswer">
+                                    <div class="dropdownWrapper">
+                                        <p>You can contact us immediately through our Official Social Media.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="redunWrapper">
+
+                    </div>
+                </div>
+            </section>
+            <section class="contentSection refundSection">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>REFUND</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <div class="refundContainer">
+                    <div class="refundForm">
+                        <label>
+                            <p>Email:</p>
+                            <input type="text">
+                        </label>
+                        <label>
+                            <p>Order Number:</p>
+                            <input type="text">
+                        </label>
+                        <div class="uploadProofContainer">
+                            <p>Upload Image:</p>
+                            <label class="input">
+                                Upload proof for refund
+                                <input type="file" id="uploadRefundProof" hidden>
+                            </label>
+                        </div>
+                        <label>
+                            <p>Reason:</p>
+                            <textarea name="" id="refundReason"></textarea>
+                        </label>
+                        <button class="btn">Send Refund Request</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shared sections — filled by main.js -->
+            <section class="contentSection newProducts newArival">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>New Arrivals</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                
+                <div class="swiper productSwiper">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </section>
+            <section class="contentSection newProducts">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>Popular Products</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <div class="swiper popularProducts">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </section>
+            <section class="contentSection reviewsContainer">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>Curated Reviews</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <div class="swiper reviewSwiper">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </section>
+
+        </div><!-- /.mainContent -->
+
+        <dialog id="policyDialog"></dialog>
+
+        <dialog id="productActionCard">
+            <div class="dialogContainer">
+                <div class="swiper ctaImages">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container variantProductImage">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+                <div class="productNameAndPrice">
+                    <p class="ctaProductname">Product Name</p>
+                    <h6 class="ctaPriceName">₱0.00</h6>
+                </div>
+                <div class="colorContainer">
+                    <span>Color</span>
+                    <div class="productColorWrapper"></div>
+                </div>
+                <div class="sizeContainer">
+                    <span>Size</span>
+                    <div class="productSizeWrapper"></div>
+                </div>
+                <div class="quantityContainer">
+                    <span>Qty</span>
+                    <div class="productQuantityWrapper">
+                        <span class="incQty"><i class="fa-solid fa-minus"></i></span>
+                        <span class="itemQty">1</span>
+                        <span class="decQty"><i class="fa-solid fa-plus"></i></span>
+                    </div>
+                </div>
+                <div class="ctaActionContainer">
+                    <div id="dialogBackBtn" class="btn back">Back</div>
+                    <div class="btn proccedAction">Add to Cart</div>
+                </div>
+            </div>
+        </dialog>
+
+        <footer>
+            <div class="footerCards">
+                <h5>TERMS & POLICIES</h5>
+                <div class="footerCardBody">
+                    <a id="refundPolicy" href="#">Refund Policies</a>
+                    <a id="privacyPolicy" href="#">Privacy Policies</a>
+                    <a id="termsOfService" href="#">Terms Of Services</a>
+                    <a id="shippingPolicy" href="#">Shipping</a>
+                </div>
+            </div>
+            <div class="footerCards">
+                <h5>INFORMATION</h5>
+                <div class="footerCardBody">
+                    <a id="aboutUsLink" href="#">About Us</a>
+                    <a href="./galery.html">Search For StreetFlex Products</a>
+                    <a href="./FAQs.html">Got A Question? Contact Us</a>
+                </div>
+                <h6>GET CONNECTED</h6>
+                <div class="footerCardBody getConnected">
+                    <a id="fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a id="ig" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a id="x" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footerCards">
+                <h5>SIGN UP & GET <span id="firstSignDiscount"></span>% OFF YOUR FIRST ORDER</h5>
+                <div class="footerCardBody">
+                    <p>Get Exclusive News on Product Drops. Sales & More</p>
+                    <a href="./signin.html" class="btn">Sign Up</a>
+                </div>
+            </div>
+            <div class="footerCardBody">
+                <h5>GET YOUR OWN WEBSITE</h5>
+                <div class="footerCardBody">
+                    <p>If You want to have Your own Webste, <a class="textLink" href="./DevTeam.html">Click Here!</a></p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/pages/FAQ,.js"></script>
+</body>
+</html>

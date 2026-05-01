@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/register.css">
+    <link rel="icon" href="../sf.webp" type="image/webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    <title>StreetFlex | Sign In</title>
+</head>
+<body>
+    <header>
+        <a href="./userPortfolio.html" class="userProfileContainer">
+            <div class="image-container userIcon">
+                <img id="UserAvatar" src="../assets/default_user_icon/defaultUserIcon.png" alt="User Avatar">
+            </div>
+            <div class="userNameAndEmail">
+                <h6 id="UserName"></h6>
+                <p id="UserEmail"></p>
+            </div>
+        </a>
+
+        <div class="spacer"></div>
+
+        <div class="search-container">
+            <div class="searchWrapper">
+                <div class="search-box">
+                    <input type="text" id="search" placeholder="Search...">
+                    <ul id="suggestions"></ul>
+                </div>
+                <i id="searchButton" class="fa-solid fa-search"></i>
+            </div>
+        </div>
+
+        <div class="navBurger">
+            <i id="menu" class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <div class="navContainer">
+        <nav>
+            <h3>Navigation</h3>
+            <ul class="navigations">
+                <li>
+                    <a href="../index.html">
+                        <i class="fa-solid fa-house"></i><h6>Home</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="./galery.html">
+                        <i class="fa-solid fa-images"></i><h6>Gallery</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="./reviews.html">
+                        <i class="fa-solid fa-star"></i><h6>Reviews</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="./FAQs.html">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <h6>FAQs</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+            </ul>
+            <h5>My Activities</h5>
+            <ul class="navigations">
+                <li>
+                    <a href="./notification.html">
+                        <i class="fa-solid fa-bell"></i>
+                        <h6>Notification <span id="newNotifCount"></span></h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./cart.html">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <h6>Cart</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./wishlist.html">
+                        <i class="fa-solid fa-heart"></i>
+                        <h6>WishList</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./orders.html">
+                        <i class="fa-solid fa-box"></i>
+                        <h6>Orders</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./userPortfolio.html">
+                        <i class="fa-solid fa-user"></i>
+                        <h6>My Profile</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a id="signOutUser" href="#">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <h6>Sign Out</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="contentContainer">
+        <div class="mainContent">
+            <!-- Hero — home page only, initialised by home.js -->
+            <section class="contentSection content-container signInContainer">
+                <div class="stage">
+                    <!-- ===== CARD 1 ===== -->
+                    <div class="card" id="card1">
+                        <div class="card-label">Welcome</div>
+                        <div class="card-title">Let's get<br><span>started.</span></div>
+                        <div class="card-body">
+                            Sign in to your account or create a new one to begin your journey.
+                        </div>
+                        <div class="card-body">
+                            <input minlength="8" id="userEmail" class="input-field" type="text" placeholder="Enter Your Email">
+                            <input id="userPassword" class="input-field" type="password" placeholder="Enter Your Password">
+                            <small id="login-error-msg" role="alert" style="color:red;margin: 0; display:none;"></small>
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="inline-msg" id="login-msg">✓ Successfully logged in!</div>
+                        <div class="card-actions" id="card1-actions">
+                            <button class="btn btn-primary" onclick="handleLogin()">Login</button>
+                            <button class="btn btn-secondary" onclick="handleRegister()">Register</button>
+                        </div>
+                    </div>
+                    <!-- ===== CARD 2 ===== -->
+                    <div class="card" id="card2">
+                        <div class="step-dots">
+                            <div class="dot active"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                        <div class="card-label">Step 1 of 2</div>
+                        <div class="card-title">Tell us<br><span>about you.</span></div>
+                        <div id="step1" class="card-body">
+                            <input minlength="8" id="registerUserEmail" class="input-field" type="text" placeholder="Enter Email">
+                            <input minlength="8" id="registerUserPassword" class="input-field" type="password" placeholder="Enter Password">
+                            <input minlength="8" id="confirmRegisterUserPassword" class="input-field" type="password" placeholder="Confirm Password">
+                            <input id="userName" class="input-field" type="text" placeholder="User Name (Optional)">
+                            <label for="uploadImage" class="uploadImage">
+                                Upload Icon (Optional)
+                                <input id="uploadImage" type="file" accept="image/*" hidden>
+                            </label>
+                            <small id="register-error-msg1" role="alert" style="color:red;margin: 0; display:none;"></small>
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="card-actions">
+                            <button class="btn btn-ghost" onclick="card2Back()">← Back</button>
+                            <button class="btn btn-primary" onclick="card2Next()">Next →</button>
+                        </div>
+                    </div>
+                    <!-- ===== CARD 3 ===== -->
+                    <div class="card" id="card3">
+                        <div class="step-dots">
+                            <div class="dot"></div>
+                            <div class="dot active"></div>
+                            <div class="dot"></div>
+                        </div>
+                        <div class="card-label">Step 2 of 2</div>
+                        <div class="card-title">Almost<br><span>there.</span></div>
+                        <div class="card-body">
+                            (OPTIONAL) Leave All Fields Empty To Skip.
+                        </div>
+                        <div id="address-card-body" class="card-body">
+                            <label id="recipient-label" for=""> Recipient 
+                                <input id="recipient" class="input-field" type="text" placeholder="Full Name">
+                            </label>
+                            <label id="phone-label" for="">Phone
+                                <input id="phone" class="input-field" type="text" placeholder="+63 9XX XXX XXXX">
+                            </label>
+                            <label id="line1-label" for="">Address Line 1 
+                                <input id="line1" class="input-field" type="text" placeholder="House/Unit no., Building, Street">
+                            </label>
+                            <label id="line2-label" for="">Address Line 2 
+                                <input id="line2" class="input-field" type="text" placeholder="Barangay, Subdivision, Landmark (optional)">
+                            </label>
+                            <label id="city-label" for="">City / Municipality
+                                <input id="city" class="input-field" type="text" placeholder="e.g. Valenzuela City">
+                            </label>
+                            <label id="postal-label" for="">Postal
+                                <input id="postal" class="input-field" type="text" placeholder="e.g. 1100">
+                            </label>
+                            <label id="fields-label" for="">Province / Region 
+                                <select class="fields" name="region"  id="region">
+                                </select>
+                            </label>
+                            <small id="register-error-msg2" role="alert" style="color:red;margin: 0; display:none;"></small>
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="card-actions">
+                            <button class="btn btn-ghost" onclick="card3Back()">← Back</button>
+                            <button class="btn btn-accent2" onclick="card3Finish()">Submit ✓</button>
+                        </div>
+                    </div>
+                    <!-- ===== CARD 4 ===== -->
+                    <div class="card" id="card4">
+                        <div class="step-dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot active"></div>
+                        </div>
+                        <div class="card-label">Almost done</div>
+                        <div class="card-title">Before you<br><span>join us.</span></div>
+
+                        <div class="card-body policy-card-body" id="policyCardBody">
+                            <p class="policy-intro">
+                                Please review and accept our policies to continue.
+                                You must agree to all three to create an account.
+                            </p>
+
+                            <!-- Privacy Policy -->
+                            <div class="policy-block" id="policyBlock-privacy_policy">
+                                <div class="policy-block-header" onclick="togglePolicy('privacy_policy')">
+                                    <span class="policy-block-title">
+                                        <i class="fa-solid fa-shield-halved"></i> Privacy Policy
+                                    </span>
+                                    <i class="fa-solid fa-chevron-down policy-chevron" id="chevron-privacy_policy"></i>
+                                </div>
+                                <div class="policy-block-content" id="content-privacy_policy"></div>
+                                <label class="policy-checkbox-row">
+                                    <input type="checkbox" id="check-privacy_policy" class="policy-check">
+                                    I have read and agree to the Privacy Policy
+                                </label>
+                            </div>
+
+                            <!-- Terms of Service -->
+                            <div class="policy-block" id="policyBlock-terms_of_service">
+                                <div class="policy-block-header" onclick="togglePolicy('terms_of_service')">
+                                    <span class="policy-block-title">
+                                        <i class="fa-solid fa-file-contract"></i> Terms of Service
+                                    </span>
+                                    <i class="fa-solid fa-chevron-down policy-chevron" id="chevron-terms_of_service"></i>
+                                </div>
+                                <div class="policy-block-content" id="content-terms_of_service"></div>
+                                <label class="policy-checkbox-row">
+                                    <input type="checkbox" id="check-terms_of_service" class="policy-check">
+                                    I have read and agree to the Terms of Service
+                                </label>
+                            </div>
+
+                            <!-- Cookie Policy -->
+                            <div class="policy-block" id="policyBlock-cookie_policy">
+                                <div class="policy-block-header" onclick="togglePolicy('cookie_policy')">
+                                    <span class="policy-block-title">
+                                        <i class="fa-solid fa-cookie-bite"></i> Cookie Policy
+                                    </span>
+                                    <i class="fa-solid fa-chevron-down policy-chevron" id="chevron-cookie_policy"></i>
+                                </div>
+                                <div class="policy-block-content" id="content-cookie_policy"></div>
+                                <label class="policy-checkbox-row">
+                                    <input type="checkbox" id="check-cookie_policy" class="policy-check">
+                                    I agree to the use of cookies as described
+                                </label>
+                            </div>
+
+                            <small id="policy-error-msg" role="alert" style="color:red; display:none; text-align:center;"></small>
+                        </div>
+
+                        <div class="card-divider"></div>
+                        <div class="card-actions">
+                            <button class="btn btn-ghost" onclick="card4Back()">← Back</button>
+                            <button class="btn btn-accent2" onclick="card4Confirm()">
+                                Accept & Create Account
+                            </button>
+                        </div>
+                    </div>
+                    <!-- ===== SUCCESS ===== -->
+                    <div id="success-msg">
+                        <div class="success-icon">🎉</div>
+                        <div class="success-title">You're all set!</div>
+                        <div class="success-sub">Your account has been created<br>successfully. Welcome aboard.</div>
+                        <button class="btn btn-primary" style="flex:0; margin-top:8px; width:100%" onclick="resetAll()">Start Over</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contentSection newProducts newArival">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>New Arrivals</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                
+                <div class="swiper productSwiper">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </section>
+            <section class="contentSection newProducts">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>Popular Products</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <div class="swiper popularProducts">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </section>
+            <section class="contentSection reviewsContainer">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>Curated Reviews</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <div class="swiper reviewSwiper">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </section>
+
+        </div>
+
+        <dialog id="policyDialog"></dialog>
+
+        <dialog id="productActionCard">
+            <div class="dialogContainer">
+                <div class="swiper ctaImages">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container variantProductImage">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+
+                <div class="productNameAndPrice">
+                    <p class="ctaProductname">Product Name</p>
+                    <h6 class="ctaPriceName">₱0.00</h6>
+                </div>
+
+                <div class="colorContainer">
+                    <span>Color</span>
+                    <div class="productColorWrapper"></div>
+                </div>
+
+                <div class="sizeContainer">
+                    <span>Size</span>
+                    <div class="productSizeWrapper"></div>
+                </div>
+
+                <div class="quantityContainer">
+                    <span>Qty</span>
+                    <div class="productQuantityWrapper">
+                        <span class="incQty"><i class="fa-solid fa-minus"></i></span>
+                        <span class="itemQty">1</span>
+                        <span class="decQty"><i class="fa-solid fa-plus"></i></span>
+                    </div>
+                </div>
+
+                <div class="ctaActionContainer">
+                    <div id="dialogBackBtn" class="btn back">Back</div>
+                    <div class="btn proccedAction">Add to Cart</div>
+                </div>
+            </div>
+        </dialog>
+
+        <footer>
+            <div class="footerCards">
+                <h5>TERMS & POLICIES</h5>
+                <div class="footerCardBody">
+                    <a id="refundPolicy" href="#">Refund Policies</a>
+                    <a id="privacyPolicy" href="#">Privacy Policies</a>
+                    <a id="termsOfService" href="#">Terms Of Services</a>
+                    <a id="shippingPolicy" href="#">Shipping</a>
+                </div>
+            </div>
+            <div class="footerCards">
+                <h5>INFORMATION</h5>
+                <div class="footerCardBody">
+                    <a id="aboutUsLink" href="#">About Us</a>
+                    <a href="./galery.html">Search For StreetFlex Products</a>
+                    <a href="./FAQs.html">Got A Question? Contact Us</a>
+                </div>
+                <h6>GET CONNECTED</h6>
+                <div class="footerCardBody getConnected">
+                    <a id="fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a id="ig" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a id="x" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footerCards">
+                <h5>SIGN UP & GET <span id="firstSignDiscount"></span>% OFF YOUR FIRST ORDER</h5>
+                <div class="footerCardBody">
+                    <p>Get Exclusive News on Product Drops. Sales & More</p>
+                    <a href="./signin.html" class="btn">Sign Up</a>
+                </div>
+            </div>
+            <div class="footerCardBody">
+                <h5>GET YOUR OWN WEBSITE</h5>
+                <div class="footerCardBody">
+                    <p>If You want to have Your own Webste, <a class="textLink" href="./DevTeam.html">Click Here!</a></p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/pages/register.js"></script>
+</body>
+</html>

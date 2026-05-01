@@ -1,0 +1,190 @@
+/* =============================================================================
+   review.css  —  StreetFlex Reviews Page
+   Depends on: main.css (.reviewCard, .reviewImageContainer, .userAddress,
+               .textReview, .likeDislikeBtnContainer, .startsRating, etc.)
+   This file only adds what main.css doesn't cover: the grid, skeletons,
+   active filter state, review image strip, and empty state.
+   ============================================================================= */
+
+/* ── Section wrapper ───────────────────────────────────────────────────────── */
+.reviewSection {
+    padding-top: 2rem;
+}
+
+/* ── Section title (matching the HTML structure) ───────────────────────────── */
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.sectionTitleLines {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, darkslategray, transparent);
+}
+
+.sectionTitle h2,
+.sectionTitle h4 {
+    text-align: center;
+    white-space: nowrap;
+    color: lightcyan;
+    margin: 0;
+    letter-spacing: 2px;
+    text-shadow: 0 0 18px rgba(0, 200, 200, 0.4);
+}
+
+/* ── Star filter — active state (adds to existing .starFilters rules) ──────── */
+.starFilters label.active {
+    background-color: rgba(255, 217, 0, 0.65);
+    box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.5);
+    color: #1a1a00;
+    font-weight: 900;
+    padding: .2rem;
+    border-radius: .5rem;
+}
+
+.starFilters label.active .fa-star {
+    color: goldenrod;
+}
+
+/* ── Review grid ───────────────────────────────────────────────────────────── */
+.reviewContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+/* ── Skeleton ──────────────────────────────────────────────────────────────── */
+.reviewSkeleton {
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.07));
+    border: 1px solid rgba(0,180,180,0.1);
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+}
+
+.reviewSkeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 200, 200, 0.05) 50%,
+        transparent 100%
+    );
+    animation: reviewShimmer 1.4s infinite;
+}
+
+@keyframes reviewShimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ── Empty state ───────────────────────────────────────────────────────────── */
+.reviewsEmpty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+    gap: 0.75rem;
+    color: rgba(173, 216, 230, 0.4);
+}
+
+.reviewsEmpty i {
+    font-size: 3rem;
+    color: rgba(255, 217, 0, 0.2);
+}
+
+.reviewsEmpty p {
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+/* ── Review image strip (photos attached to reviews) ──────────────────────── */
+.reviewImgStrip {
+    display: flex;
+    gap: 0.4rem;
+    padding-inline: 1rem;
+    flex-wrap: wrap;
+}
+
+.reviewImgThumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 0.4rem;
+    overflow: hidden;
+    border: 1px solid rgba(0, 180, 180, 0.25);
+    background: #0d1f1f;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color 0.15s, transform 0.15s;
+}
+
+.reviewImgThumb:hover {
+    border-color: darkcyan;
+    transform: scale(1.05);
+}
+
+.reviewImgThumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ── Show More button  ─────────────────────────────────────────────────────── */
+/* #showMore already styled in wishlist.css but scoped to wishlistSection.
+   Re-declare here so it works on the review page independently. */
+.reviewSection #showMore {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    color: rgba(0, 210, 210, 0.75);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-top: 1.25rem;
+    padding: 0.5rem;
+    border: 1px dashed rgba(0, 180, 180, 0.28);
+    border-radius: 0.5rem;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.reviewSection #showMore:hover {
+    color: lightcyan;
+    border-color: rgba(0, 200, 200, 0.55);
+    background: rgba(0, 200, 200, 0.05);
+}
+
+.reviewSection #showMore.hidden { display: none; }
+
+/* ── Helpful btn voted state ───────────────────────────────────────────────── */
+.reviewHelpfulBtn {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+/* ── Responsive grid ───────────────────────────────────────────────────────── */
+@media (min-width: 640px) {
+    .reviewContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .reviewContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1440px) {
+    .reviewContainer {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

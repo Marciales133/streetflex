@@ -1,0 +1,413 @@
+/* =============================================================================
+   userPortfolio.css  —  My Profile page
+   Responsive from 320px up.
+   All colours use existing CSS vars from main.css.
+   ============================================================================= */
+
+/* ── Section wrapper ─────────────────────────────────────────────────────────── */
+.pf-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: none;
+    margin-inline: auto;
+    width: 100%;
+}
+
+/* ── Card shell ──────────────────────────────────────────────────────────────── */
+.pf-card {
+    background: linear-gradient(rgba(0,0,0,0.75), rgba(3,162,162,0.18));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    color: white;
+    width: 100%;
+}
+
+/* ── Card header row ─────────────────────────────────────────────────────────── */
+.pf-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem;
+}
+.pf-card-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: lightcyan;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+.pf-card-title i { color: darkcyan; }
+
+/* ── Icon button (edit / add / close) ───────────────────────────────────────── */
+.pf-icon-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: .5rem;
+    color: lightcyan;
+    cursor: pointer;
+    padding: .3rem .6rem;
+    font-size: .8rem;
+    transition: background .15s ease, color .15s ease;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    text-decoration: none;
+}
+.pf-icon-btn:hover { background: darkcyan; color: white; border-color: darkcyan; }
+
+/* ── Profile view ────────────────────────────────────────────────────────────── */
+.pf-profile-view {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ── Avatar ──────────────────────────────────────────────────────────────────── */
+.pf-avatar-wrap { position: relative; flex-shrink: 0; }
+.pf-avatar {
+    width: 5rem;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    border: 2px solid darkcyan;
+    overflow: hidden;
+}
+
+/* ── Info grid (label / value pairs) ────────────────────────────────────────── */
+.pf-info-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: .2rem .75rem;
+    align-items: baseline;
+    flex: 1;
+    min-width: 0;
+}
+.pf-label {
+    font-size: .75rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    white-space: nowrap;
+    margin: 0;
+}
+.pf-value {
+    font-size: .875rem;
+    color: white;
+    font-weight: 500;
+    margin: 0;
+    word-break: break-word;
+}
+
+/* ── Profile edit mode ───────────────────────────────────────────────────────── */
+.pf-profile-edit {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.pf-hidden { display: none !important; }
+
+/* Editable avatar with camera overlay */
+.pf-avatar-editable { cursor: pointer; }
+.pf-avatar-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity .2s ease;
+    cursor: pointer;
+    color: white;
+    font-size: 1.2rem;
+}
+.pf-avatar-editable:hover .pf-avatar-overlay { opacity: 1; }
+
+/* Edit fields */
+.pf-edit-fields {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    flex: 1;
+    min-width: 180px;
+}
+.pf-field-label {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    font-size: .75rem;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    width: 100%;
+}
+.pf-input {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: .4rem;
+    padding: .4rem .6rem;
+    font-size: .833rem;
+    color: white;
+    outline: none;
+    transition: border-color .2s ease;
+    width: 100%;
+}
+.pf-input:focus { border-color: darkcyan; }
+.pf-input::placeholder { color: rgba(255,255,255,0.3); }
+select.pf-input option { background: #1a1a1a; color: white; }
+
+.pf-error {
+    color: #f87171;
+    font-size: .75rem;
+    min-height: 1rem;
+    display: block;
+}
+
+/* ── Action buttons ──────────────────────────────────────────────────────────── */
+.pf-edit-actions {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+.pf-btn {
+    cursor: pointer;
+    border-radius: .4rem;
+    padding: .4rem .9rem;
+    font-size: .833rem;
+    font-weight: 600;
+    border: none;
+    transition: background .15s ease, transform .1s ease;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    flex: 1;
+    justify-content: center;
+    min-width: 80px;
+}
+.pf-btn:hover  { transform: translateY(-1px); }
+.pf-btn:active { transform: translateY(1px); }
+.pf-btn-primary {
+    background: darkcyan;
+    color: white;
+}
+.pf-btn-primary:hover { background: teal; }
+.pf-btn-ghost {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.75);
+}
+.pf-btn-ghost:hover { background: rgba(255,255,255,0.12); }
+.pf-btn-danger {
+    background: rgba(239,68,68,0.15);
+    border: 1px solid rgba(239,68,68,0.35);
+    color: #f87171;
+}
+.pf-btn-danger:hover { background: rgba(239,68,68,0.28); }
+
+/* ── Address list ────────────────────────────────────────────────────────────── */
+.pf-address-list {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+.pf-empty {
+    color: rgba(255,255,255,0.35);
+    font-size: .833rem;
+    margin: 0;
+    text-align: center;
+    padding: .5rem 0;
+}
+
+/* Address item row */
+.pf-addr-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: .6rem;
+    padding: .65rem .75rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .3rem .5rem;
+    align-items: start;
+}
+.pf-addr-item.is-default {
+    border-color: darkcyan;
+    background: rgba(0,139,139,0.1);
+}
+.pf-addr-badge {
+    font-size: .65rem;
+    background: darkcyan;
+    color: white;
+    border-radius: 100px;
+    padding: 1px 7px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    align-self: center;
+}
+.pf-addr-label {
+    font-size: .7rem;
+    color: darkcyan;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin: 0 0 .1rem;
+}
+.pf-addr-text {
+    font-size: .8rem;
+    color: rgba(255,255,255,0.8);
+    margin: 0;
+    line-height: 1.5;
+    grid-column: 1/2;
+}
+.pf-addr-actions {
+    grid-column: 2/3;
+    grid-row: 1 / span 3;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    align-self: center;
+}
+.pf-addr-actions .pf-btn {
+    flex: unset;
+    padding: .25rem .5rem;
+    font-size: .75rem;
+    min-width: unset;
+}
+
+/* ── Address dialog ──────────────────────────────────────────────────────────── */
+#pfAddressDialog {
+    width: 92%;
+    min-width: 280px;
+    max-width: 480px;
+    padding: 0;
+    border: none;
+    border-radius: 1rem;
+    background: transparent;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#pfAddressDialog::backdrop {
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(3px);
+}
+.pf-dialog-inner {
+    background: linear-gradient(135deg, rgb(0,40,40), rgb(0,20,30));
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    color: white;
+
+    /* Animated entry */
+    animation: pfDialogIn .35s cubic-bezier(0.34,1.45,0.64,1) forwards;
+}
+@keyframes pfDialogIn {
+    from { opacity: 0; transform: scale(0.9) translateY(16px); }
+    to   { opacity: 1; transform: scale(1)   translateY(0);    }
+}
+
+/* Address form 2-col grid */
+.pf-addr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .6rem;
+}
+.pf-span2 { grid-column: 1 / 3; }
+
+.pf-checkbox-row {
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    font-size: .833rem;
+    text-transform: none;
+    letter-spacing: 0;
+}
+.pf-checkbox-row input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: darkcyan;
+    cursor: pointer;
+}
+
+/* ── Loading skeleton ────────────────────────────────────────────────────────── */
+.pf-skeleton {
+    background: linear-gradient(90deg,
+        rgba(255,255,255,0.06) 25%,
+        rgba(255,255,255,0.12) 50%,
+        rgba(255,255,255,0.06) 75%);
+    background-size: 200% 100%;
+    animation: pfSkeleton 1.4s ease infinite;
+    border-radius: .3rem;
+    height: .9rem;
+}
+@keyframes pfSkeleton {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+#pfProfileCard, #pfAddressCard{
+    max-width: 720px;
+    margin-inline: auto;
+}
+
+
+
+/* =============================================================================
+   RESPONSIVE
+   ============================================================================= */
+
+/* 320px — minimum supported width */
+@media (max-width: 359px) {
+    .pf-section { padding: .6rem; }
+    .pf-card { padding: .75rem; }
+    .pf-addr-grid { grid-template-columns: 1fr; }
+    .pf-span2 { grid-column: 1 / 2; }
+    .pf-addr-item { grid-template-columns: 1fr; }
+    .pf-addr-actions {
+        grid-column: 1/2;
+        grid-row: unset;
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 360px) {
+    .pf-section { padding: .75rem; }
+}
+
+@media (min-width: 480px) {
+    .pf-section { padding: 1rem 1.25rem; }
+    .pf-avatar { width: 6rem; }
+}
+
+@media (min-width: 600px) {
+    .pf-addr-actions { flex-direction: row; }
+}
+
+@media (min-width: 768px) {
+    .pf-section {
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+    }
+    .pf-card { padding: 1.25rem 1.5rem; }
+    .pf-avatar { width: 7rem; }
+    .pf-card-title { font-size: 1.1rem; }
+}
+
+@media (min-width: 1024px) {
+    #pfProfileCard, #pfAddressCard{
+        max-width: 1000px;
+    }
+}

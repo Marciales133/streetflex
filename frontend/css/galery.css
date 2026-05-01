@@ -1,0 +1,638 @@
+/* =============================================================================
+   galery.css  —  StreetFlex Gallery Page
+   Depends on: main.css (variables, .btn, .image-container, .productCard, etc.)
+   ============================================================================= */
+
+/* ── Section wrapper ───────────────────────────────────────────────────────── */
+.gallerySection {
+    padding: 1.5rem 0 3rem;
+    min-height: 80vh;
+}
+
+/* ── Page header ───────────────────────────────────────────────────────────── */
+.galleryHeader {
+    padding: 0 1rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.galleryHeader h2 {
+    font-size: 1.5rem;
+    color: lightcyan;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: 0 0 18px rgba(0,200,200,0.4);
+}
+
+.galleryResultMeta {
+    font-size: 0.75rem;
+    color: rgba(173,216,230,0.55);
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+/* ── Filter toggle (mobile only) ───────────────────────────────────────────── */
+.filterToggleBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(0,100,100,0.35);
+    border: 1px solid rgba(0,180,180,0.3);
+    color: lightcyan;
+    border-radius: 0.45rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.filterToggleBtn:hover {
+    background: rgba(0,140,140,0.45);
+    border-color: darkcyan;
+}
+
+.filterToggleBtn .filterCount {
+    background: darkcyan;
+    color: white;
+    border-radius: 2rem;
+    padding: 0 0.35rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    display: none;
+}
+
+.filterToggleBtn .filterCount.visible { display: inline; }
+
+/* ── Sort bar ──────────────────────────────────────────────────────────────── */
+.gallerySortBar {
+    padding: 0 1rem 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.gallerySortLabel {
+    font-size: 0.72rem;
+    color: rgba(173,216,230,0.5);
+    letter-spacing: 0.5px;
+}
+
+.gallerySortBtn {
+    background: rgba(0,40,40,0.5);
+    border: 1px solid rgba(0,160,160,0.2);
+    color: rgba(173,216,230,0.7);
+    border-radius: 2rem;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.12s;
+    white-space: nowrap;
+}
+
+.gallerySortBtn:hover { background: rgba(0,80,80,0.5); color: lightcyan; }
+
+.gallerySortBtn.active {
+    background: darkcyan;
+    border-color: darkcyan;
+    color: white;
+    font-weight: 700;
+}
+
+/* ── Body: sidebar + grid ──────────────────────────────────────────────────── */
+.galleryBody {
+    display: grid;
+    grid-template-columns: 1fr;     /* mobile: no sidebar */
+    gap: 0;
+    padding: 0 1rem;
+    position: relative;
+}
+
+/* ── SIDEBAR ───────────────────────────────────────────────────────────────── */
+.gallerySidebar {
+    /* Mobile: hidden — shown as centered modal sheet */
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    width: min(340px, 92vw);
+    max-height: 85vh;
+    z-index: 210;
+    background: rgba(0, 14, 14, 0.99);
+    border: 1px solid rgba(0,200,200,0.25);
+    border-radius: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,180,180,0.3) transparent;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,200,200,0.1);
+}
+
+.gallerySidebar.open {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Backdrop */
+.sidebarBackdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 209;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+}
+
+.sidebarBackdrop.visible { display: block; }
+
+/* Sidebar header */
+.sidebarHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(0,180,180,0.15);
+}
+
+.sidebarHead h5 {
+    color: lightcyan;
+    margin: 0;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-shadow: none;
+}
+
+.sidebarCloseBtn {
+    background: none;
+    border: none;
+    color: rgba(173,216,230,0.6);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.2rem;
+    transition: color 0.12s;
+}
+
+.sidebarCloseBtn:hover { color: lightcyan; }
+
+/* Clear all filters button */
+.filterClearAll {
+    display: none;
+    width: 100%;
+    background: rgba(180,0,0,0.2);
+    border: 1px solid rgba(200,0,0,0.3);
+    color: rgba(255,150,150,0.85);
+    border-radius: 0.4rem;
+    padding: 0.3rem;
+    font-size: 0.72rem;
+    cursor: pointer;
+    margin-bottom: 0.85rem;
+    transition: background 0.15s;
+}
+
+.filterClearAll:hover { background: rgba(180,0,0,0.4); color: white; }
+.filterClearAll.visible { display: block; }
+
+/* ── Filter group ──────────────────────────────────────────────────────────── */
+.filterGroup {
+    margin-bottom: 1.25rem;
+}
+
+.filterGroupLabel {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(0,200,200,0.65);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Category + Tag chips */
+.filterChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.filterChip {
+    background: rgba(0,40,40,0.6);
+    border: 1px solid rgba(0,160,160,0.25);
+    color: rgba(173,216,230,0.75);
+    border-radius: 2rem;
+    padding: 0.18rem 0.6rem;
+    font-size: 0.68rem;
+    cursor: pointer;
+    transition: all 0.12s;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.filterChip:hover {
+    background: rgba(0,80,80,0.55);
+    border-color: rgba(0,200,200,0.4);
+    color: lightcyan;
+}
+
+.filterChip.active {
+    background: darkcyan;
+    border-color: darkcyan;
+    color: white;
+    font-weight: 700;
+}
+
+/* Color swatches */
+.filterColors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.filterColorSwatch {
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.4);
+    cursor: pointer;
+    transition: transform 0.12s, outline 0.12s;
+    flex-shrink: 0;
+}
+
+.filterColorSwatch:hover { transform: scale(1.15); }
+
+.filterColorSwatch.active {
+    outline: 2px solid lightcyan;
+    outline-offset: 2px;
+    transform: scale(1.1);
+}
+
+/* Price range */
+.filterPriceRange {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filterPriceInputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+}
+
+.filterPriceInput {
+    background: rgba(0,30,30,0.7);
+    border: 1px solid rgba(0,160,160,0.25);
+    border-radius: 0.35rem;
+    color: lightcyan;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.5rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.12s;
+}
+
+.filterPriceInput:focus { border-color: darkcyan; }
+.filterPriceInput::placeholder { color: rgba(173,216,230,0.3); }
+
+.filterPriceSlider {
+    width: 100%;
+    accent-color: darkcyan;
+    cursor: pointer;
+}
+
+.filterPriceDisplay {
+    font-size: 0.68rem;
+    color: rgba(0,200,200,0.65);
+    text-align: center;
+}
+
+/* ── PRODUCT GRID ──────────────────────────────────────────────────────────── */
+.galleryGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    align-content: start;
+}
+
+/* ── Gallery product card (larger than swiper card) ────────────────────────── */
+.galleryCard {
+    background: linear-gradient(145deg, rgba(0,55,55,0.88), rgba(0,22,22,0.96));
+    border: 1px solid rgba(0,180,180,0.18);
+    border-radius: 0.85rem;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    box-shadow: -2px 3px 12px rgba(0,0,0,0.5);
+}
+
+.galleryCard:hover {
+    transform: translateY(-4px);
+    box-shadow: -3px 8px 24px rgba(0,200,200,0.18);
+    border-color: rgba(0,200,200,0.42);
+}
+
+/* Image */
+.galleryCardImg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #0a1a1a;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.galleryCardImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.galleryCard:hover .galleryCardImg img { transform: scale(1.04); }
+
+/* Badges */
+.galleryBadgeRow {
+    position: absolute;
+    top: 0.4rem;
+    left: 0.4rem;
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+}
+
+.galleryBadge {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.25rem;
+    line-height: 1.4;
+}
+
+.badge-preorder { background: darkorange;        color: white; }
+.badge-oos      { background: rgba(120,0,0,0.8); color: #ffaaaa; border: 1px solid rgba(200,0,0,0.4); }
+.badge-new      { background: rgba(0,120,120,0.9);color: lightcyan; }
+
+/* Body */
+.galleryCardBody {
+    padding: 0.65rem 0.7rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+}
+
+.galleryCardName {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: rgba(220,240,240,0.95);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.galleryCardPrice {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: darkcyan;
+    margin: 0;
+}
+
+/* Color swatches strip */
+.galleryCardColors {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.galleryCardColorDot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+}
+
+.galleryCardColorsMore {
+    font-size: 0.6rem;
+    color: rgba(173,216,230,0.5);
+}
+
+/* Size chips */
+.galleryCardSizes {
+    display: flex;
+    gap: 0.2rem;
+    flex-wrap: wrap;
+}
+
+.galleryCardSizeChip {
+    font-size: 0.58rem;
+    background: rgba(0,60,60,0.55);
+    border: 1px solid rgba(0,160,160,0.2);
+    color: rgba(173,216,230,0.7);
+    border-radius: 0.25rem;
+    padding: 0.05rem 0.3rem;
+}
+
+/* Action buttons */
+.galleryCardActions {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: auto;
+    padding-top: 0.35rem;
+}
+
+.galleryCardActions .btn {
+    flex: 1;
+    text-align: center;
+    font-size: 0.68rem;
+    padding: 0.3rem 0.4rem;
+    white-space: nowrap;
+}
+
+.galleryCardActions .btn.cart-btn  { background: var(--primary-500); }
+.galleryCardActions .btn.order-btn { background: darkcyan; }
+.galleryCardActions .btn.pre-btn   { background: darkorange; }
+
+/* Out of stock — whole card dimmed */
+.galleryCard.oos {
+    opacity: 0.6;
+}
+
+.galleryCard.oos .galleryCardActions .btn {
+    background: var(--grey-600) !important;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* ── Skeleton ──────────────────────────────────────────────────────────────── */
+.gallerySkeleton {
+    border-radius: 0.85rem;
+    background: linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.07));
+    border: 1px solid rgba(0,180,180,0.08);
+    aspect-ratio: 0.7 / 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.gallerySkeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(0,200,200,0.05) 50%,
+        transparent 100%);
+    animation: galShimmer 1.4s infinite;
+}
+
+@keyframes galShimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ── Empty state ───────────────────────────────────────────────────────────── */
+.galleryEmpty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 1rem;
+    gap: 0.75rem;
+    color: rgba(173,216,230,0.35);
+    text-align: center;
+}
+
+.galleryEmpty i { font-size: 3rem; color: rgba(0,200,200,0.15); }
+.galleryEmpty p { margin: 0; font-size: 0.875rem; }
+
+/* ── Show More ─────────────────────────────────────────────────────────────── */
+#galleryShowMore {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    color: rgba(0,210,210,0.75);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-top: 1.5rem;
+    padding: 0.6rem;
+    border: 1px dashed rgba(0,180,180,0.28);
+    border-radius: 0.5rem;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+#galleryShowMore:hover {
+    color: lightcyan;
+    border-color: rgba(0,200,200,0.55);
+    background: rgba(0,200,200,0.05);
+}
+
+#galleryShowMore.hidden { display: none; }
+
+/* ── Active filter pills (shown above grid) ────────────────────────────────── */
+.activeFilterPills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.85rem;
+}
+
+.activeFilterPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(0,120,120,0.3);
+    border: 1px solid rgba(0,200,200,0.3);
+    color: lightcyan;
+    border-radius: 2rem;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.68rem;
+    cursor: pointer;
+    transition: background 0.12s;
+}
+
+.activeFilterPill:hover { background: rgba(180,0,0,0.3); border-color: rgba(200,0,0,0.4); color: #ffaaaa; }
+.activeFilterPill i { font-size: 0.55rem; }
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (min-width: 480px) {
+    .galleryGrid {
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    .galleryGrid {
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 1.1rem;
+    }
+    .galleryHeader h2 { font-size: 2rem; }
+}
+
+/* Desktop: sidebar always visible inline */
+@media (min-width: 1024px) {
+    .filterToggleBtn { display: none; }
+
+    .sidebarBackdrop { display: none !important; }
+
+    .galleryBody {
+        grid-template-columns: 240px 1fr;
+        gap: 1.5rem;
+        align-items: start;
+    }
+
+    /* Override modal positioning — inline sticky on desktop */
+    .gallerySidebar {
+        display: block !important;
+        position: sticky;
+        top: 1rem;
+        left: unset;
+        top: 1rem;
+        transform: none !important;
+        opacity: 1 !important;
+        width: 100%;
+        max-height: calc(100vh - 80px);
+        border: 1px solid rgba(0,180,180,0.15);
+        border-radius: 0.85rem;
+        background: rgba(0,18,18,0.85);
+        padding: 1rem;
+        box-shadow: none;
+    }
+
+    .sidebarCloseBtn { display: none; }
+
+    .galleryGrid {
+        grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+    }
+}
+
+@media (min-width: 1280px) {
+    .galleryBody {
+        grid-template-columns: 260px 1fr;
+    }
+    .galleryGrid {
+        grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+    }
+}
+
+@media (min-width: 1440px) {
+    .galleryGrid {
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    }
+}

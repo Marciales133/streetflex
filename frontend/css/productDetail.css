@@ -1,0 +1,560 @@
+/* =============================================================================
+   productDetail.css  —  StreetFlex Product Detail Page
+   ============================================================================= */
+
+/* ── Section ───────────────────────────────────────────────────────────────── */
+.pdSection {
+    padding: 1.5rem 0 2rem;
+    background: linear-gradient(
+        rgba(255, 255, 255, 0),
+        rgba(0, 139, 139, 0.5), rgba(0, 139, 139, 0.75), darkcyan, darkcyan, 
+        darkcyan, darkcyan, darkcyan, darkcyan,
+        darkcyan, darkcyan, darkcyan, darkcyan, 
+        darkcyan, darkcyan, rgba(0, 139, 139, 0.75), rgba(0, 139, 139, 0.5),
+        rgba(255, 255, 255, 0)
+    );
+}
+
+/* ── Back link ─────────────────────────────────────────────────────────────── */
+.pdBackLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgb(210, 235, 244);
+    font-weight: bold;
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 0 1rem 1rem;
+    transition: color 0.15s;
+    text-decoration: none;
+}
+.pdBackLink:hover { color: lightcyan; }
+
+/* ── Main layout ───────────────────────────────────────────────────────────── */
+.pdLayout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+/* ── Image column ──────────────────────────────────────────────────────────── */
+.pdImageCol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+/* Main image swiper */
+.pdMainSwiper {
+    width: 100%;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    border: 1px solid rgba(0,180,180,0.2);
+}
+
+
+.pdMainSwiper img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    aspect-ratio: 1/1;
+    max-width: 600px;
+    margin-inline: auto;
+}
+
+/* Thumbnail strip */
+.pdThumbStrip {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+}
+.pdThumbStrip::-webkit-scrollbar { display: none; }
+
+.pdThumb {
+    flex-shrink: 0;
+    width: 54px;
+    height: 54px;
+    border-radius: 0.4rem;
+    overflow: hidden;
+    border: 2px solid rgba(0,180,180,0.15);
+    background: #0a1a1a;
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.12s;
+}
+
+.pdThumb:hover { border-color: rgba(0,200,200,0.45); transform: scale(1.05); }
+.pdThumb.active { border-color: darkcyan; }
+
+.pdThumb img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block;
+    aspect-ratio: 1/1;
+}
+
+/* ── Info column ───────────────────────────────────────────────────────────── */
+.pdInfoCol {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+.pdImageCol,
+.pdInfoCol {
+    min-width: 0;
+}
+
+/* Breadcrumb / meta row */
+.pdMeta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.pdCategory {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgb(0, 200, 200);
+    background: rgba(0,80,80,0.3);
+    border: 1px solid rgba(0,160,160,0.2);
+    border-radius: 2rem;
+    padding: 0.1rem 0.55rem;
+}
+
+.pdPreorderTag {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: rgba(180,80,0,0.35);
+    color: #ffc07e;
+    border: 1px solid rgba(255,140,0,0.3);
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.4rem;
+}
+
+/* Name */
+.pdName {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: rgb(220, 240, 240);
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+}
+
+/* Price */
+.pdPriceRow {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+}
+
+.pdPrice {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: rgb(0, 100, 100);
+    margin: 0;
+}
+
+.pdPriceNote {
+    font-size: 0.7rem;
+    color: rgb(173, 216, 230);
+    margin: 0;
+}
+
+/* Review stars summary */
+.pdReviewSummary {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: rgb(173, 216, 230);
+}
+
+.pdReviewStars { color: gold; }
+.pdReviewCount { font-size: 0.7rem; }
+
+/* Stock indicator */
+.pdStockRow {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+}
+
+.pdStockDot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.pdStockDot.in   { background: #4cff4c; box-shadow: 0 0 4px #4cff4c; }
+.pdStockDot.low  { background: orange;  box-shadow: 0 0 4px orange; }
+.pdStockDot.out  { background: #ff5555; }
+.pdStockDot.pre  { background: #ffb347; box-shadow: 0 0 4px #ffb347; }
+
+.pdStockText { color: rgb(173, 216, 230); }
+
+/* Divider */
+.pdDivider {
+    height: 1px;
+    background: linear-gradient(to right, rgba(0,180,180,0.2), transparent);
+    border: none;
+    margin: 0;
+}
+
+/* Selector group label */
+.pdSelectorLabel {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgb(0, 200, 200);
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+/* Color selector */
+.pdColorRow {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.pdColorDot {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
+    cursor: pointer;
+    transition: transform 0.12s, outline 0.12s;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.pdColorDot:hover { transform: scale(1.15); }
+
+.pdColorDot.active {
+    outline: 2px solid lightcyan;
+    outline-offset: 3px;
+    transform: scale(1.1);
+}
+
+.pdSelectedColorName {
+    font-size: 0.72rem;
+    color: rgb(173, 216, 230);
+    margin-left: 0.25rem;
+}
+
+/* Size selector */
+.pdSizeRow {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.pdSizeChip {
+    background: rgba(0,40,40,0.6);
+    border: 1px solid rgba(0,160,160,0.25);
+    color: rgb(173, 216, 230);
+    border-radius: 0.45rem;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.12s;
+    user-select: none;
+}
+
+.pdSizeChip:hover {
+    background: rgba(0,80,80,0.5);
+    border-color: rgba(0,200,200,0.4);
+    color: lightcyan;
+}
+
+.pdSizeChip.active {
+    background: darkcyan;
+    border-color: darkcyan;
+    color: white;
+}
+
+.pdSizeChip.oos {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+    text-decoration: line-through;
+}
+
+/* Quantity row */
+.pdQtyRow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.pdQtyControls {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(0,180,180,0.25);
+    border-radius: 0.45rem;
+    overflow: hidden;
+}
+
+.pdQtyBtn {
+    background: rgba(0,80,80,0.35);
+    border: none;
+    color: white;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: background 0.12s;
+}
+
+.pdQtyBtn:hover:not(:disabled) { background: rgba(0,130,130,0.45); }
+.pdQtyBtn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.pdQtyVal {
+    min-width: 2.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: white;
+    background: rgba(0,30,30,0.5);
+    height: 2rem;
+    line-height: 2rem;
+    padding: 0 0.25rem;
+}
+
+.pdStockAvail {
+    font-size: 0.68rem;
+    color: rgb(173, 216, 230);
+}
+
+/* CTA buttons */
+.pdCTARow {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    align-items: center;
+    min-width: 0;
+}
+
+.pdWishBtn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    background: rgba(0,40,40,0.55);
+    border: 1px solid rgba(255,80,80,0.3);
+    color: rgba(255,100,100,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+}
+
+.pdWishBtn:hover { background: rgba(120,0,0,0.3); color: red; border-color: rgba(255,80,80,0.6); }
+.pdWishBtn.wished { color: red; background: rgba(80,0,0,0.3); border-color: rgba(255,80,80,0.5); }
+
+.pdActionBtns {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    min-width: 0;
+}
+.pdActionBtns .btn {
+    min-width: 0;
+}
+.pdCartBtn {
+    flex: 1;
+    text-align: center;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--primary-500) !important;
+    min-width: 80px;
+}
+
+.pdOrderBtn {
+    flex: 1;
+    text-align: center;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.75rem;
+    background: darkcyan !important;
+    min-width: 80px;
+}
+
+.pdPreorderBtn {
+    flex: 1;
+    text-align: center;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.75rem;
+    background: darkorange !important;
+    min-width: 80px;
+}
+
+.pdCTARow .btn:disabled,
+.pdCTARow .btn.disabled {
+    background: var(--grey-600) !important;
+    opacity: 0.45;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* Description */
+.pdDescription {
+    font-size: 0.82rem;
+    color: rgb(173, 216, 230);
+    line-height: 1.7;
+    margin: 0;
+    white-space: pre-line;
+    max-width: 100%;
+}
+
+/* Tags */
+.pdTagRow {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.pdTag {
+    font-size: 0.65rem;
+    background: rgba(0,60,60,0.4);
+    border: 1px solid rgba(0,160,160,0.2);
+    color: rgb(0, 200, 200);
+    border-radius: 2rem;
+    padding: 0.1rem 0.55rem;
+}
+
+/* ── Skeleton ──────────────────────────────────────────────────────────────── */
+.pdSkeleton {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.pdSkeletonImg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 0.85rem;
+    background: linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.07));
+    border: 1px solid rgba(0,180,180,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.pdSkeletonImg::after,
+.pdSkeletonLine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+        transparent 0%, rgba(0,200,200,0.06) 50%, transparent 100%);
+    animation: pdShimmer 1.4s infinite;
+}
+
+@keyframes pdShimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.pdSkeletonInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.pdSkeletonLine {
+    border-radius: 0.4rem;
+    background: rgba(255,255,255,0.05);
+    height: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.pdSkeletonLine.wide   { width: 85%; }
+.pdSkeletonLine.medium { width: 55%; }
+.pdSkeletonLine.short  { width: 30%; }
+
+/* ── Error state ───────────────────────────────────────────────────────────── */
+.pdError {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 1rem;
+    gap: 0.75rem;
+    color: rgba(173,216,230,0.35);
+    text-align: center;
+}
+.pdError i { font-size: 3rem; color: rgba(255,80,80,0.2); }
+.pdError p { margin: 0; font-size: 0.875rem; }
+
+/* ── Section title (shared) ────────────────────────────────────────────────── */
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.sectionTitleLines {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, darkslategray, transparent);
+}
+.sectionTitle h4 {
+    text-align: center;
+    white-space: nowrap;
+    color: lightcyan;
+    margin: 0;
+    letter-spacing: 2px;
+    text-shadow: 0 0 18px rgba(0,200,200,0.4);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (min-width: 640px) {
+    .pdName { font-size: 1.7rem; }
+    .pdThumb { width: 60px; height: 60px; }
+}
+
+@media (min-width: 768px) {
+    .pdLayout {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        gap: 2.5rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+    .pdSkeleton {
+        grid-template-columns: 1fr 1fr;
+    }
+    .pdName { font-size: 1.8rem; }
+}
+
+@media (min-width: 1024px) {
+    .pdLayout {
+        grid-template-columns: 1.1fr 1fr;
+        gap: 2.5rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+    .pdName { font-size: 2rem; }
+}

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../css/normalize.css">
+    <link rel="stylesheet" href="../../css/adminPannel.css">
+    <link rel="stylesheet" href="../../css/adminPannelProduct.css">
+    <link rel="icon" href="../../sf.webp" type="image/webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="businessLogo">
+            <img src="">
+        </div>
+        <div class="navBurger">
+            <i id="menu" class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+    <div class="navContainer">
+        <nav>
+            <h2>Navigation</h2>
+            <ul class="navigations">
+                <li>
+                    <a href="../k9Xv3LmP0aZtR7qWc2Hs.html">
+                        <i class="fa-solid fa-home"></i>
+                        <h6>HOME</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./users.html">
+                        <i class="fa-solid fa-user"></i>
+                        <h6>USER</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./products.html">
+                        <i class="fa-solid fa-box"></i>
+                        <h6>PRODUCTS</h6>
+                        <span class="underline active-nav"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./orders.html">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <h6>ORDERS</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./faqs.html">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <h6>FAQs</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./reviews.html">
+                        <i class="fa-solid fa-star"></i>
+                        <h6>REVIEWS</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+            </ul>
+            <h4>Content Nav</h4>
+            <ul class="navigations">
+                <li>
+                    <div class="dropdownContainer">
+                        <div class="dropdownValueContainer">
+                            <i class="fa-solid fa-tag"></i>
+                            <h6 id="tagFilterValue">Tags</h6>
+                            <i class="fa-solid fa-arrow-right arrowDropDown"></i>
+                        </div>
+                        <div class="dropdownOptionsContainer">
+                            <div id="tagFilterOptions" class="dropdownOptionsWrapper">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdownContainer">
+                        <div class="dropdownValueContainer">
+                            <i class="fa-solid fa-folder"></i>
+                            <h6 id="catFilterValue">Categories</h6>
+                            <i class="fa-solid fa-arrow-right arrowDropDown"></i>
+                        </div>
+                        <div class="dropdownOptionsContainer">
+                            <div id="catFilterOptions" class="dropdownOptionsWrapper">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a id="filterActive"   href="#">
+                        <i class="fa-solid fa-toggle-on"></i>
+                        <h6>Active</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a id="filterInactive" href="#">
+                        <i class="fa-solid fa-toggle-off"></i>
+                        <h6>Inactive</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a id="filterPreorder" href="">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                        <h6>Preorder</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a id="filterNoStock"  href="#">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h6>No Stocks</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <main class="contentContainer">
+        <aside class="filterContainer">
+            <div class="search-container">
+                <div class="searchWrapper">
+                    <div class="search-box">
+                        <input type="text" id="search" placeholder="Search...">
+                        <ul id="suggestions"></ul>
+                    </div>
+                    <i id="searchButton" class="fa-solid fa-search"></i>
+                </div>
+                <div class="manageProductsContainer">
+                    <button onclick="manageCategories.showModal()" class="btn"><i class="fa-solid fa-add"></i> Categories</button>
+                    <button onclick="manageTags.showModal()" class="btn"><i class="fa-solid fa-add"></i> Tags</button>
+                    <button id="addProduct" class="btn"><i class="fa-solid fa-add"></i> Products</button>
+                </div>
+            </div>
+        </aside>
+        <dialog id="manageCategories">
+            <form>
+                <h5>
+                    <button type="button" onclick="manageCategories.close()" class="btn backBtn">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    Manage Categories
+                </h5>
+                <div class="dialogContent dialog1">
+                    <label>
+                        <input type="text" value="T-Shirts" disabled>
+                        <button type="button" onclick="handleCatDialogAction(this, 'editCat')" class="dialogEditBtn difHide">Edit</button>
+                        <button type="button" onclick="handleCatDialogAction(this, 'deleteCat')" class="dialogDeleteBtn difHide">Delete</button>
+                        <button type="button" onclick="handleCatDialogAction(this, 'cancelEdit')" class="dialogCancelBtn editHide hide">Cancel</button>
+                        <button type="button" onclick="handleCatDialogAction(this, 'doneEdit')" class="dialogDoneBtn editHide hide">Done</button>
+                    </label>
+                </div>
+                <div class="addAndField">
+                    <input type="text" name="" id="catField">
+                    <button type="button" class="btn" id="addCat"><i class="fa-solid fa-add"></i> Add</button>
+                </div>
+            </form>
+        </dialog>
+        <dialog id="manageTags">
+            <form>
+                <h5>
+                    <button type="button" onclick="manageTags.close()" class="btn backBtn">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    Manage Categories
+                </h5>
+                <div class="dialogContent dialog2">
+                    <span class="spanTags">New Arrival <i class="fa-solid fa-x"></i></span>
+                    <span class="spanTags">Oversized   <i class="fa-solid fa-x"></i></span>
+                    <span class="spanTags">Collab  <i class="fa-solid fa-x"></i></span>
+                    <span class="spanTags">Limited  <i class="fa-solid fa-x"></i></span>
+                </div>
+                <div class="addAndField">
+                    <input type="text" name="" id="tagField">
+                    <button type="button" class="btn" id="addTag"><i class="fa-solid fa-add"></i> Add</button>
+                </div>
+            </form>
+        </dialog>
+        <div class="mainContent">
+            <h2>Manage Products</h2>
+            <div class="mainContentWrapper">
+                
+            </div>
+            <div class="showMore" id="showMoreContainer" style="display:none;">
+                <button id="showMore"><h5>Show More...</h5></button>
+            </div>
+            <footer>
+                <h6>Lets have a productive day Team!</h6>
+            </footer>
+        </div>
+    </main>
+    <div class="formContainer">
+        <div id="formWrapperStep1" class="formWrapper">
+            <h4>SECTION 1 — BASIC INFO</h4>
+            <div class="formBody">
+                <label>Name <input type="text" id="fieldName" placeholder="Product name"></label>
+                <label>Slug <input type="text" id="fieldSlug" placeholder="auto-generated"></label>
+                <label>Description <textarea id="fieldDescription" rows="3" placeholder="Description..."></textarea></label>
+                <label>Base Price <input type="number" id="fieldPrice" min="0" placeholder="899"></label>
+                <label>Weight (grams) <input type="number" id="fieldWeight" min="0" placeholder="optional"></label>
+                <label>Category <select id="fieldCategory"></select></label>
+                <label>Tags
+                    <div id="tagSelectContainer" class="tagSelectContainer"></div>
+                </label>
+                <div class="toggleRow">
+                    <label><input type="checkbox" id="fieldIsActive" checked> Active</label>
+                    <label><input type="checkbox" id="fieldIsPreorder"> Preorder</label>
+                </div>
+                <small id="formError1" style="color:red;display:none;"></small>
+            </div>
+            <div class="formNav">
+                <button id="closeForm" class="btn">Close Form</button>
+                <button id="nextToStep2" class="btn">Next</button>
+            </div>
+        </div>
+        <div id="formWrapperStep2" class="formWrapper">
+            <h4>SECTION 2 — IMAGES</h4>
+            <div class="formBody">
+                <label class="uploadLabel">
+                    + Upload Images
+                    <input type="file" id="imageUploadInput" accept="image/*" multiple hidden>
+                </label>
+                <div id="imagePreviewList" class="imagePreviewList"></div>
+                <small id="formError2" style="color:red;display:none;"></small>
+            </div>
+            <div class="formNav">
+                <button id="backToStep1" class="btn">Back</button>
+                <button id="nextToStep3" class="btn">Next</button>
+            </div>
+        </div>
+        <div id="formWrapperStep3" class="formWrapper">
+            <h4>SECTION 3 — VARIANTS</h4>
+            <div class="formBody">
+                <table class="variantTable">
+                    <thead>
+                        <tr>
+                            <th>SKU</th><th>Size</th><th>Color</th>
+                            <th>Stock</th><th>+Price</th><th>On</th><th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="variantTableBody"></tbody>
+                </table>
+                <button type="button" id="addVariantRow" class="btn">+ Add Variant</button>
+                <small id="formError3" style="color:red;display:none;"></small>
+            </div>
+            <div class="formNav">
+                <button id="backToStep2" class="btn">Back</button>
+                <button id="submitProductRegistration" class="btn">Submit</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/pages/adminPannel.js"></script>
+    <script src="../../js/pages/admin/product.js"></script>
+</body>
+</html>

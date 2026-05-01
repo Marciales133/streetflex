@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/devTeam.css">
+    <link rel="icon" href="../sf.webp" type="image/webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    <title>StreetFlex | Development Team</title>
+</head>
+<body>
+    <header>
+        <a href="./userPortfolio.html" class="userProfileContainer">
+            <div class="image-container userIcon">
+                <img id="UserAvatar" src="../assets/default_user_icon/defaultUserIcon.png" alt="User Avatar">
+            </div>
+            <div class="userNameAndEmail">
+                <h6 id="UserName"></h6>
+                <p id="UserEmail"></p>
+            </div>
+        </a>
+        <div class="spacer"></div>
+        <div class="search-container">
+            <div class="searchWrapper">
+                <div class="search-box">
+                    <input type="text" id="search" placeholder="Search...">
+                    <ul id="suggestions"></ul>
+                </div>
+                <i id="searchButton" class="fa-solid fa-search"></i>
+            </div>
+        </div>
+        <div class="navBurger">
+            <i id="menu" class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <div class="navContainer">
+        <nav>
+            <h3>Navigation</h3>
+            <ul class="navigations">
+                <li>
+                    <a href="../index.html">
+                        <i class="fa-solid fa-house"></i><h6>Home</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="./galery.html">
+                        <i class="fa-solid fa-images"></i><h6>Gallery</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="./reviews.html">
+                        <i class="fa-solid fa-star"></i><h6>Reviews</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="./FAQs.html">
+                        <i class="fa-solid fa-circle-question"></i><h6>FAQs</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+            </ul>
+            <h5>My Activities</h5>
+            <ul class="navigations">
+                <li>
+                    <a href="./notification.html">
+                        <i class="fa-solid fa-bell"></i>
+                        <h6>Notification <span id="newNotifCount"></span></h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./cart.html">
+                        <i class="fa-solid fa-cart-shopping"></i><h6>Cart</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./wishlist.html">
+                        <i class="fa-solid fa-heart"></i><h6>WishList</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./orders.html">
+                        <i class="fa-solid fa-box"></i><h6>Orders</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./userPortfolio.html">
+                        <i class="fa-solid fa-user"></i><h6>My Profile</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li>
+                    <a id="signOutUser" href="#">
+                        <i class="fa-solid fa-right-from-bracket"></i><h6>Sign Out</h6>
+                        <span class="underline"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="contentContainer">
+        <div class="mainContent">
+            <section class="contentSection devTeamSection">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h2>Dev Team</h2>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <p style="text-align: center; font-weight: bold; color: white; max-width: 800px; margin-inline: auto;">
+                    This project was developed through a
+                    collaborative effort, combining technical 
+                    implementation and project coordination to 
+                    deliver a functional and user-focused website.
+                </p>
+                <div class="devTeamContainer">
+                    <div class="devTeamWrapper">
+                        <div class="cardContainer devTeamCard">
+                            <div class="devNameAndImageContainer">
+                                <h5>
+                                    Rushell Marciales
+                                </h5>
+                                <div class="image-container">
+                                    <img class="img" src="../assets/developer_images/rushell.jpeg">
+                                </div>
+                            </div>
+                            <div class="cardContent">
+                                <div class="devRoleContainer">
+                                    <h6>Full-Stack Developer: 
+                                        <a href="https://marciales133.github.io/My_Portfolio" class="textLink">Visit <i class="fa-solid fa-briefcase"></i></a>
+                                    </h6>
+                                    <p class="justify">
+                                        Responsible for the overall development and technical 
+                                        implementation of the system, ensuring functionality, 
+                                        performance, and integration across all parts of the 
+                                        application.
+                                    </p>
+                                    <ul>
+                                        <li>Developed the complete frontend and backend system.</li>
+                                        <li>Designed and managed the database structure.</li>
+                                        <li>Implemented core features and application logic.</li>
+                                        <li>Integrated media handling solutions (e.g., ImageKit).</li>
+                                        <li>Managed deployment and technical setup.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="devTeamWrapper">
+                        
+                        <div class="cardContainer devTeamCard">
+                            <div class="devNameAndImageContainer">
+                                <h5>
+                                    Michael San Juan
+                                </h5>
+                                <div class="image-container">
+                                    <img class="img" src="../assets/developer_images/michael.jpg">
+                                </div>
+                            </div>
+                            <div class="cardContent">
+                                <div class="devRoleContainer">
+                                    <h6>Project Coordinator & UI Contributor 
+                                    </h6>
+                                    <p class="justify">
+                                        Contributed to the planning and coordination of the 
+                                        project while assisting in design decisions to ensure 
+                                        alignment with client needs.
+                                    </p>
+                                    <ul>
+                                        <li>Managed communication with the client and gathered requirements.</li>
+                                        <li>Handled legal and documentation-related processes.</li>
+                                        <li>Coordinated project direction and decision-making.</li>
+                                        <li>IntegAssisted in UI design and visual feedback.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="devTeamWrapper">
+                        
+                        <div class="cardContainer devTeamCard">
+                            <div class="devNameAndImageContainer">
+                                <h5>
+                                    Kurt Wendel Rosal
+                                </h5>
+                                <div class="image-container">
+                                    <img class="img" src="../assets/developer_images/kurt.jpg">
+                                </div>
+                            </div>
+                            <div class="cardContent">
+                                <div class="devRoleContainer">
+                                    <h6>Project Coordinator & Documentation Manager 
+                                    </h6>
+                                    <p class="justify">
+                                        Contributed to the planning and coordination of the 
+                                        project while assisting in design decisions to ensure 
+                                        alignment with Instructors requirements.
+                                    </p>
+                                    <ul>
+                                        <li>Managed communication with the Instructor and get instructions.</li>
+                                        <li>Handled legal and documentation-related processes.</li>
+                                        <li>Coordinated project direction and decision-making.</li>
+                                        <li>Get and Note Visual suggestions from the Instructor.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Shared sections — filled by main.js -->
+            <section class="contentSection newProducts newArival">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>New Arrivals</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                
+                <div class="swiper productSwiper">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </section>
+            <section class="contentSection newProducts">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>Popular Products</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <div class="swiper popularProducts">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </section>
+            <section class="contentSection reviewsContainer">
+                <div class="sectionTitle">
+                    <div class="sectionTitleLines"></div>
+                    <h4>Curated Reviews</h4>
+                    <div class="sectionTitleLines"></div>
+                </div>
+                <div class="swiper reviewSwiper">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </section>
+
+        </div><!-- /.mainContent -->
+
+        <dialog id="policyDialog"></dialog>
+
+        <dialog id="productActionCard">
+            <div class="dialogContainer">
+                <div class="swiper ctaImages">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container variantProductImage">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+                <div class="productNameAndPrice">
+                    <p class="ctaProductname">Product Name</p>
+                    <h6 class="ctaPriceName">₱0.00</h6>
+                </div>
+                <div class="colorContainer">
+                    <span>Color</span>
+                    <div class="productColorWrapper"></div>
+                </div>
+                <div class="sizeContainer">
+                    <span>Size</span>
+                    <div class="productSizeWrapper"></div>
+                </div>
+                <div class="quantityContainer">
+                    <span>Qty</span>
+                    <div class="productQuantityWrapper">
+                        <span class="incQty"><i class="fa-solid fa-minus"></i></span>
+                        <span class="itemQty">1</span>
+                        <span class="decQty"><i class="fa-solid fa-plus"></i></span>
+                    </div>
+                </div>
+                <div class="ctaActionContainer">
+                    <div id="dialogBackBtn" class="btn back">Back</div>
+                    <div class="btn proccedAction">Add to Cart</div>
+                </div>
+            </div>
+        </dialog>
+
+        
+        <footer>
+            <div class="footerCards">
+                <h5>TERMS & POLICIES</h5>
+                <div class="footerCardBody">
+                    <a id="refundPolicy" href="#">Refund Policies</a>
+                    <a id="privacyPolicy" href="#">Privacy Policies</a>
+                    <a id="termsOfService" href="#">Terms Of Services</a>
+                    <a id="shippingPolicy" href="#">Shipping</a>
+                </div>
+            </div>
+            <div class="footerCards">
+                <h5>INFORMATION</h5>
+                <div class="footerCardBody">
+                    <a id="aboutUsLink" href="#">About Us</a>
+                    <a href="./galery.html">Search For StreetFlex Products</a>
+                    <a href="./FAQs.html">Got A Question? Contact Us</a>
+                </div>
+                <h6>GET CONNECTED</h6>
+                <div class="footerCardBody getConnected">
+                    <a id="fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a id="ig" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a id="x" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footerCards">
+                <h5>SIGN UP & GET <span id="firstSignDiscount"></span>% OFF YOUR FIRST ORDER</h5>
+                <div class="footerCardBody">
+                    <p>Get Exclusive News on Product Drops. Sales & More</p>
+                    <a href="./signin.html" class="btn">Sign Up</a>
+                </div>
+            </div>
+            <div class="footerCardBody">
+                <h5>GET YOUR OWN WEBSITE</h5>
+                <div class="footerCardBody">
+                    <p>If You want to have Your own Webste, <a class="textLink" href="./DevTeam.html">Click Here!</a></p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/pages/review.js"></script>
+</body>
+</html>

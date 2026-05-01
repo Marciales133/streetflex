@@ -1,0 +1,116 @@
+.mainContent h3{
+    text-align: center;
+}
+
+.image-container{
+    width: 50px !important;
+}
+.mainContentWrapper{
+    grid-template-columns: repeat(auto-fill, minmax(288px, 300px));
+}
+.cardContainer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 1fr max-content;
+    gap: 1rem;
+    padding: .8rem;
+}.cardUserRelatedInfo{
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    padding-bottom: .5rem;
+    border-bottom: solid darkslategray;
+}.cardUserRelatedInfo .userNameAndDate{
+    display: flex;
+    flex-direction: column;
+    gap: .07rem;
+}.cardUserRelatedInfo .userNameAndDate .userName{
+    font-weight: bold;
+}.ratingContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    gap: .5rem;
+    padding-top: .5rem;
+}.ratingContainer > *{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}.starsContainer{
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}.ratingContainer > * >span:first-child{
+    font-weight: bold;
+    opacity: .8;
+}.cardReviewRelatedInfo{
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+}.orderIdAndIsVerifiedContainer > *{
+    border: solid black;
+    border-radius: .5rem;
+    padding: .1rem .5rem;
+    font-weight: 600;
+}.fa-circle-check{
+    color: rgb(0, 255, 0);
+}.orderIdAndIsVerifiedContainer .isVerified{
+    color: lightgreen;
+    background-color: green;
+}.orderIdAndIsVerifiedContainer .orderId{
+    background-color: rgb(0, 0, 176);
+    color: lightblue;
+}.cardReviewRelatedInfo .ratingContainer,.cardReviewRelatedInfo .orderIdAndIsVerifiedContainer{
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+.cardBody{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding-bottom: .5rem;
+    border-bottom: solid darkslategray;
+}.imagesContainer{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .8rem;
+}.imagesContainer .image-container{
+    width: 60px !important;
+    border-radius: .5rem;
+}.commentContainer{
+    height: 80px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.cardActionContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .4rem;
+}.cardActionContainer > div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .4rem;
+}.cardActionContainer .status{
+    padding: .1rem .5rem;
+    border: solid black;
+    background-color: beige;
+    color: black;
+    font-weight: bold;
+    border-radius: .5rem;
+}.cardActionContainer > div .likesDislikesContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .4rem;
+}
+
+.hide{
+    display: none;
+}

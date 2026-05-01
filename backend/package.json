@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/server.js",
+    "seed:superadmin": "node src/utils/seedSuperAdmin.js"
+  },
+  "author": "Rushell Marciales",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "crypto": "^1.0.1",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.3.1",
+    "form-data": "^4.0.5",
+    "mongoose": "^9.3.0",
+    "multer": "^2.1.1",
+    "node-fetch": "^3.3.2",
+    "sharp": "^0.34.5",
+    "slugify": "^1.6.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

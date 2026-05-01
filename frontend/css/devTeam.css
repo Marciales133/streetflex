@@ -1,0 +1,65 @@
+.devTeamContainer{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 400px));
+    align-items: center;
+    grid-template-rows: repeat(1fr);
+    justify-content: center;
+    gap: 1rem;
+}
+.devTeamCard{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 1fr;
+    justify-self: center;
+    height: 100%;
+    margin-inline: auto;
+}
+.devTeamCard h5{
+    text-align: center;
+    color: cyan;
+    text-shadow: -1px 1px 2px black;
+}
+.devTeamCard h6{
+    color: lightcyan;
+    text-shadow: none ;
+}
+.devTeamCard .image-container{
+    border-radius: .5rem;
+    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
+}
+.devTeamCard ul{
+    padding-left: 1rem;
+    list-style-type: square;
+    text-align: justify;
+    color: lightblue;
+}
+
+.cardContainer.devTeamCard{
+    background: linear-gradient( rgba(0, 0, 0, 0.75), rgb(0, 75, 75));
+}
+
+
+
+@media (min-width: 480px) {
+}
+@media (min-width: 650px) {
+    .devTeamContainer{
+    grid-template-columns: repeat(auto-fill, 600px);
+    }
+    .devTeamCard{
+        grid-template-columns: 2fr 3fr;
+        grid-template-rows: 1fr;
+        min-width: 590px;
+    }
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 1024px) {
+}
+@media (min-width: 1280px) {
+}
+@media (min-width: 1920px) {
+  /* large screens / 4K */
+}

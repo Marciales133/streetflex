@@ -1,0 +1,45 @@
+.heroContainer{
+    width: 100%;
+}.heroImageContainer{
+    width: 100% !important;
+    aspect-ratio: 3/4;
+    background-color: rgb(0, 0, 80);
+}
+
+
+
+
+/* base = mobile */
+
+@media (min-width: 480px) {
+    .heroImageContainer{
+        aspect-ratio: 1/1;
+    }
+}
+
+@media (min-width: 768px) {
+    .heroImageContainer{
+        aspect-ratio: 4/3;
+    }
+}
+
+@media (min-width: 1024px) {
+    .heroImageContainer{
+        margin-inline: auto;
+        width: 85% !important;
+        aspect-ratio: 16/9;
+    }
+}
+
+@media (min-width: 1200px) {
+    .heroImageContainer{
+        width: 85% !important;
+        aspect-ratio: 18/9;
+    }
+}
+
+@media (min-width: 1920px) {
+    .heroImageContainer{
+        aspect-ratio: 21/9;
+    }
+}
