@@ -859,7 +859,7 @@ async function handleWishlistClick(product, heartEl) {
 // =============================================================================
 
 async function handlePlaceOrder(product, variantId, quantity, isPreorder) {
-    const variant = getSelectedVariant();
+    const variant = product.variants.find(v => String(v._id) === String(variantId));
     if (!variant) return;
     const defaultAddress = state.user?.addresses?.find(a => a.is_default && !a.deleted_at);
     if (!defaultAddress) {

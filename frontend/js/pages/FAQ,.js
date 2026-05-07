@@ -290,14 +290,23 @@ async function submitRefund() {
     try {
         // Step 1: upload proof image
         if (!refundProofUrl) {
-            const formData = new FormData();
-            formData.append("file",   refundProofFile);
-            formData.append("folder", "refunds");
+            const compressed = await compressImageBrowser(refundProofFile);
 
-            const uploadRes  = await fetch(IK_UPLOAD_URL, {
-                method: "POST",
-                credentials: "include",
-                body:   formData,
+            const authRes  = await fetch("/api/auth/upload", { credentials: "include" });
+            const authData = await authRes.json();
+
+            const form = new FormData();
+            form.append("file",              compressed);
+            form.append("fileName",          refundProofFile.name.replace(/\.[^/.]+$/, "") + ".jpg");
+            form.append("publicKey",         authData.publicKey);
+            form.append("signature",         authData.signature);
+            form.append("expire",            authData.expire);
+            form.append("token",             authData.token);
+            form.append("folder",            "/StreetFlex/refunds");
+            form.append("useUniqueFileName", "true");
+
+            const uploadRes  = await fetch("https://upload.imagekit.io/api/v1/files/upload", {
+                method: "POST", headers: { Accept: "application/json" }, body: form,
             });
             const uploadData = await uploadRes.json();
             if (!uploadRes.ok) throw new Error(uploadData.message || "Upload failed.");
@@ -362,6 +371,36 @@ async function submitRefund() {
 // =============================================================================
 // HASH ROUTING — auto-scroll to #refund if routed from orders page
 // =============================================================================
+function compressImageBrowser(file, maxDimension = 1200, quality = 0.82) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+            URL.revokeObjectURL(url);
+            let { width, height } = img;
+            if (width > maxDimension || height > maxDimension) {
+                if (width > height) {
+                    height = Math.round(height * maxDimension / width);
+                    width  = maxDimension;
+                } else {
+                    width  = Math.round(width * maxDimension / height);
+                    height = maxDimension;
+                }
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width  = width;
+            canvas.height = height;
+            canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+            canvas.toBlob(blob => {
+                if (!blob) { reject(new Error("Compression failed.")); return; }
+                resolve(new File([blob], file.name, { type: "image/jpeg" }));
+            }, "image/jpeg", quality);
+        };
+        img.onerror = () => reject(new Error("Failed to load image."));
+        img.src = url;
+    });
+}
+
 
 function handleHashScroll() {
     if (window.location.hash === "#refund") {

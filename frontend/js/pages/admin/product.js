@@ -691,22 +691,52 @@
         uploadedImages.forEach((img, idx) => img.is_primary = idx === i);
         renderImagePreviews();
     };
+    function compressImageBrowser(file, maxDimension = 1600, quality = 0.82) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            const url = URL.createObjectURL(file);
+            img.onload = () => {
+                URL.revokeObjectURL(url);
+                let { width, height } = img;
+                if (width > maxDimension || height > maxDimension) {
+                    if (width > height) {
+                        height = Math.round(height * maxDimension / width);
+                        width  = maxDimension;
+                    } else {
+                        width  = Math.round(width * maxDimension / height);
+                        height = maxDimension;
+                    }
+                }
+                const canvas = document.createElement("canvas");
+                canvas.width  = width;
+                canvas.height = height;
+                canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+                canvas.toBlob(blob => {
+                    if (!blob) { reject(new Error("Compression failed.")); return; }
+                    resolve(new File([blob], file.name, { type: "image/jpeg" }));
+                }, "image/jpeg", quality);
+            };
+            img.onerror = () => reject(new Error("Failed to load image."));
+            img.src = url;
+        });
+    }
 
     async function uploadImagesToImageKit() {
         const uploaded = [];
         for (const img of uploadedImages) {
             if (!img.file) {
-                // already a URL (edit mode, existing image)
                 uploaded.push({ url: img.url, alt_text: img.alt_text, is_primary: img.is_primary, sort_order: img.sort_order });
                 continue;
             }
             try {
+                const compressed = await compressImageBrowser(img.file);
+
                 const authRes  = await fetch("/api/auth/upload", { credentials: "include" });
                 const authData = await authRes.json();
 
                 const form = new FormData();
-                form.append("file",              img.file);
-                form.append("fileName",          img.file.name);
+                form.append("file",              compressed);
+                form.append("fileName",          img.file.name.replace(/\.[^/.]+$/, "") + ".jpg");
                 form.append("publicKey",         authData.publicKey);
                 form.append("signature",         authData.signature);
                 form.append("expire",            authData.expire);

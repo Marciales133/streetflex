@@ -116,7 +116,7 @@ async function getGalleryProducts(req, res) {
         match.category_id = new mongoose.Types.ObjectId(category);
     }
     if (tags) {
-        const tagList = tags.split(",").map(t => t.trim().toLowerCase()).filter(Boolean);
+        const tagList = tags.split(",").map(t => t.trim()).filter(Boolean);
         if (tagList.length) match.tag_names = { $in: tagList };
     }
     if (minPrice || maxPrice) {

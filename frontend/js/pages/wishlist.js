@@ -98,7 +98,7 @@ function initWishDialog() {
 
     // Qty controls
     wishDialog.el.querySelector(".wishPlusBtn").addEventListener("click", () => {
-        const variant  = getWishSelectedVariant();
+        const variant = getWishSelectedVariant();
         if (!variant) return;
         const maxStock = wishDialog.product?.is_preorder
             ? (variant.preorder?.max_slots || 0) - (variant.preorder?.claimed_slots || 0)
@@ -112,7 +112,7 @@ function initWishDialog() {
         if (cur > 1) setWishQty(cur - 1);
     });
 
-    // Cart button — swap dialogEl so handleAddToCart's dialogEl.close() hits our dialog
+    // Cart button
     wishDialog.el.querySelector(".wishCartBtn").addEventListener("click", async () => {
         const { product, variantId } = wishDialog;
         if (!variantId) { showToast("Please select a size and color.", "danger"); return; }
@@ -127,7 +127,7 @@ function initWishDialog() {
         }
     });
 
-    // Order / Preorder button — same dialogEl swap
+    // Order / Preorder button
     wishDialog.el.querySelector(".wishOrderBtn").addEventListener("click", async () => {
         const { product, variantId } = wishDialog;
         if (!variantId) { showToast("Please select a size and color.", "danger"); return; }
@@ -135,7 +135,7 @@ function initWishDialog() {
         const _orig = dialogEl;
         dialogEl = wishDialog.el;
         try {
-            await (product, variantId, getWishQty(), product.is_preorder);
+            await handlePlaceOrder(product, variantId, getWishQty(), product.is_preorder);
         } finally {
             dialogEl = _orig;
             setWishBtnsLoading(false);

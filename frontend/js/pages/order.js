@@ -451,30 +451,61 @@ function addImagePreview(file, index) {
     };
     reader.readAsDataURL(file);
 }
+function compressImageBrowser(file, maxDimension = 1200, quality = 0.82) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+            URL.revokeObjectURL(url);
+            let { width, height } = img;
+            if (width > maxDimension || height > maxDimension) {
+                if (width > height) {
+                    height = Math.round(height * maxDimension / width);
+                    width  = maxDimension;
+                } else {
+                    width  = Math.round(width * maxDimension / height);
+                    height = maxDimension;
+                }
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width  = width;
+            canvas.height = height;
+            canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+            canvas.toBlob(blob => {
+                if (!blob) { reject(new Error("Compression failed.")); return; }
+                resolve(new File([blob], file.name, { type: "image/jpeg" }));
+            }, "image/jpeg", quality);
+        };
+        img.onerror = () => reject(new Error("Failed to load image."));
+        img.src = url;
+    });
+}
+
 
 // ── Upload image via ImageKit proxy ───────────────────────────────────────────
 async function uploadReviewImage(file) {
+    const compressed = await compressImageBrowser(file);
+
     const authRes  = await fetch("/api/auth/upload", { credentials: "include" });
     const authData = await authRes.json();
 
     const form = new FormData();
-    form.append("file",              file);
-    form.append("fileName",          file.name);
+    form.append("file",              compressed);
+    form.append("fileName",          file.name.replace(/\.[^/.]+$/, "") + ".jpg");
     form.append("publicKey",         authData.publicKey);
     form.append("signature",         authData.signature);
     form.append("expire",            authData.expire);
     form.append("token",             authData.token);
     form.append("folder",            "/StreetFlex/reviews");
     form.append("useUniqueFileName", "true");
+
     const uploadRes  = await fetch("https://upload.imagekit.io/api/v1/files/upload", {
         method: "POST", headers: { Accept: "application/json" }, body: form,
     });
-    console.log("review body:", JSON.stringify(uploadRes.body));
     const uploadData = await uploadRes.json();
     if (!uploadRes.ok) throw new Error(uploadData.message || "Upload failed.");
     return uploadData.url;
 }
-
 // ── Submit review ─────────────────────────────────────────────────────────────
 if (reviewSubmitBtn) {
     reviewSubmitBtn.addEventListener("click", submitReview);
