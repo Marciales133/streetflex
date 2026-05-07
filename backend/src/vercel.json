@@ -1,15 +1,16 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "backend/src/server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "backend/src/server.js"
-    }
-  ]
+    "version": 2,
+    "installCommand": "cd backend && npm install",
+    "builds": [
+        {
+        "src": "backend/src/server.js",
+        "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+        "src": "/(.*)",
+        "dest": "backend/src/server.js"
+        }
+    ]
 }
