@@ -26,7 +26,11 @@
 }
 .notif-unread-label {
     font-size: .8rem;
-    color: rgba(255,255,255,0.5);
+    color: lightgray;
+    background: rgba(0,139,139,0.18);
+    border: 1px solid darkcyan;
+    padding: .3rem .75rem;
+    border-radius: .4rem;
     margin: 0;
 }
 .notif-unread-label span {
@@ -37,7 +41,7 @@
     background: rgba(0,139,139,0.18);
     border: 1px solid darkcyan;
     border-radius: .4rem;
-    color: lightcyan;
+    color: lightgray;
     font-size: .75rem;
     font-weight: 600;
     padding: .3rem .75rem;

@@ -21,16 +21,16 @@
 
 .galleryHeader h2 {
     font-size: 1.5rem;
-    color: lightcyan;
+    color: rgb(0, 14, 14);
     letter-spacing: 2px;
     text-transform: uppercase;
     margin: 0;
-    text-shadow: 0 0 18px rgba(0,200,200,0.4);
+    text-shadow: 0 0 18px rgba(25, 25, 112, 0.4);
 }
 
 .galleryResultMeta {
     font-size: 0.75rem;
-    color: rgba(173,216,230,0.55);
+    color: rgba(25, 25, 112, 0.55);
     letter-spacing: 0.5px;
     margin: 0;
 }
@@ -78,7 +78,7 @@
 
 .gallerySortLabel {
     font-size: 0.72rem;
-    color: rgba(173,216,230,0.5);
+    color: rgba(25, 25, 112, 0.55);
     letter-spacing: 0.5px;
 }
 

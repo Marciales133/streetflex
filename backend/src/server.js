@@ -23,4 +23,12 @@ app.use("/api/admin", adminOnlyRouter);
 
 connectDB();
 
+app.listen(process.env)
+// Local development only
+if (process.env.NODE_ENV !== "production") {
+    const PORT = process.env.PORT || 5500;
+    app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+    });
+}
 export default app;

@@ -333,7 +333,7 @@ header{
     display: grid;
     grid-template-rows: 1fr max-content;
     height: calc(100vh - 54px);
-    background-color:lightcyan;
+    background-color:rgba(135, 206, 250, 0.3);
     grid-column: 2/3;
     grid-row: 2/3;
 }
@@ -355,7 +355,7 @@ aside.filterContainer{
     flex: 1;
     gap: .5rem;
     border: solid black;
-    background-color: rgba(135, 206, 250, 0.6);
+    background-color: white;
     border-radius: 1rem;
     padding:.2rem 1rem;
 }.search-box {

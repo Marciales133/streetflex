@@ -6,7 +6,7 @@
 /* ── Section ───────────────────────────────────────────────────────────────── */
 .cartSection {
     padding-top: 2rem;
-    padding-bottom: 7rem; /* room for sticky checkout bar */
+    padding-bottom: 2rem; /* room for sticky checkout bar */
 }
 
 /* ── Header ────────────────────────────────────────────────────────────────── */
@@ -31,6 +31,7 @@
     font-size: 0.78rem;
     letter-spacing: 1px;
     margin: 0;
+    color: rgba(211, 211, 211, 0.75);
 }
 
 /* ── Bulk action bar ───────────────────────────────────────────────────────── */
@@ -43,7 +44,6 @@
     font-weight: 600;
     padding: 0.5rem 0.25rem;
     margin-bottom: 1rem;
-    border-bottom: 1px solid rgb(0, 71, 71);
 }
 
 .cartSelectAllLabel {
@@ -53,6 +53,7 @@
     cursor: pointer;
     font-size: 0.8rem;
     user-select: none;
+    color: rgba(211, 211, 211, 0.75);
 }
 
 .cartSelectAllLabel input[type="checkbox"] {
@@ -63,9 +64,10 @@
 }
 
 .cartBulkRemove {
-    background: rgba(129, 29, 29, 0.75);
+    background: rgb(255, 99, 71);
     border: 1px solid rgb(129, 29, 29);
-    color: rgb(255, 208, 208);
+    color: maroon;
+    font-weight: bold;
     border-radius: 0.4rem;
     padding: 0.25rem 0.65rem;
     font-size: 0.75rem;

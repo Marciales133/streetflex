@@ -556,7 +556,8 @@ dialog#productActionCard{
     letter-spacing: 1px;font-size: 1.4rem;
     margin-bottom: 0.25rem;
     padding-inline: 0.25rem;
-    text-shadow: 0 0 18px darkslategray;
+    color: white !important;
+    text-shadow: 0 0 2px darkslategray !important;
     margin: 0 !important;
 }
 
@@ -569,31 +570,47 @@ section  h2 {
     align-items: center;
     justify-content: space-between;
     gap: .1rem;
+    margin-bottom: 2rem;
 }
 .sectionTitleLines{
     flex: 1;
     height: 3px;
-    background-color: darkslategray;
+    background-color: rgb(255, 255, 255) !important;
 }
 
 .contentContainer .swiper-slide{
     height: 100%;
 }
-.mainContent{
+.mainContent {
     position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
     height: fit-content;
-    background: linear-gradient( 
-        lightblue,  
-        rgb(122, 177, 177),  
-        rgb(80, 138, 138), 
-        rgb(93, 142, 142), 
-        rgb(156, 196, 196), 
-        rgb(112, 161, 161), 
-        rgb(67, 95, 107), 
-        black);
+    background: linear-gradient(
+    #5a8bc0 0%,
+    #5282b8 4%,
+    #4a79b0 8%,
+    #426fa6 12%,
+    #3b659d 16%,
+    #355d93 20%,
+    #305689 24%,
+    #2b4f7f 28%,
+    #274875 32%,
+    #24426c 36%,
+    #234069 40%,
+    #25436d 44%,
+    #294978 48%,
+    #2f5484 52%,
+    #386291 58%,
+    #41709f 64%,
+    #4a7eae 70%,
+    #31567a 76%,
+    #1d3148 82%,
+    #0d1724 88%,
+    #05080d 94%,
+    #000000 100%
+    );
 }.mainContent h2{
     text-align: center;
 }.mainContentWrapper{
@@ -695,13 +712,16 @@ footer .footerCardBody .btn{width: fit-content;}
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     gap: .3rem;
-    background: linear-gradient(135deg, #8ecece, lightcyan);
-    border: solid darkslategray;
+    background: #0f2540;
+    border-bottom: 0.5px solid #1e3f6a;
+    border-left: 0.5px solid #1e3f6a;
+    border-top: 0.5px solid grey;
+    border-right: 0.5px solid grey;
+    box-shadow: -2px 2px 2px #000;
     height: 100% !important;
-    box-shadow: -2px 2px 2px black;
 }.productImage{
     width: 100%;
-    border:2px solid darkslategray;
+    border: 2px solid #1e3f6a;
 }.productBody{
     display: grid;
     grid-template-columns: 1fr;
@@ -712,10 +732,11 @@ footer .footerCardBody .btn{width: fit-content;}
     display: grid;
     grid-template-rows: max-content max-content;
     align-items: center;
-
+    color: #e8f0fa;
+    font-weight: bold;
 }.ProductPrice{
     font-size: var(--font-size-sm);
-    color: rgb(0, 90, 90);
+    color: #6aaad8;
     font-weight: 600;
 }.productBtnContainer{
     display: flex;
@@ -724,14 +745,17 @@ footer .footerCardBody .btn{width: fit-content;}
 }.productBtnContainer i{
     cursor: pointer;
     font-weight: bold;
-    text-shadow: -1px 1px 1px darkslategrey;
+    text-shadow: -1px 1px 1px #000;
 }.btn.checkout{
     padding: .2rem;
     font-weight: 500;
-    background-color: darkcyan;
-    color: lightblue;
+    font-weight: bold;
+    background-color: #1e4a80;
+    color: #e8f0fa;
+    box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.75);
+    text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.5);
 }.fa-heart{
-    color: red;
+    color: #e05555;
 }
 
 .reviewCard{
@@ -741,18 +765,23 @@ footer .footerCardBody .btn{width: fit-content;}
     gap: 1rem;
     
     height: 100% !important;
-    background: linear-gradient(135deg, #90ffff, rgb(166, 204, 204));
+    background: linear-gradient(135deg, #0b1929 0%, #0f2540 40%, #1e4a80 75%, rgba(30, 74, 128, 0.35) 100%);
     height: max-content;
     padding-bottom: .5rem;
+    border-bottom: 0.5px solid #1e3f6a;
+    border-left: 0.5px solid #1e3f6a;
+    border-top: 0.5px solid grey;
+    border-right: 0.5px solid grey;
     max-width: 320px;
-    box-shadow: -2px 2px 2px black;
+    box-shadow: -1px 2px 4px rgba(255, 255, 255, 0.08);
+    color: #e8f0fa;
 }.reviewCard > *{
     padding-inline: 1rem;
 }.reviewImageContainer{
     padding: unset;
     width: 100%;
     aspect-ratio: 1/1;
-    background-color: #141233;
+    background-color: #060f1a;
 }.userAddress{
     display: flex;
     align-items: center;
@@ -767,7 +796,7 @@ footer .footerCardBody .btn{width: fit-content;}
 }.userReviewIcon{
     width: 70px;
     border-radius: 100%;
-    border: 2px solid darkslategray;
+    border: 2px solid #1e3f6a;
 }.nameWrapper > *{
     margin: 0;
 }.textReview{

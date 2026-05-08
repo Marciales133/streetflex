@@ -22,6 +22,12 @@
     width: 100%;
     height: 100px;
 }
+section > *{
+    color: white;
+}
+.dropdownQuestion, .dropdownAnswer{
+    color: black;
+}
 
 /* =============================================================================
    FAQ.css  ADDITIONS — paste at the bottom of your existing FAQ.css
@@ -57,7 +63,7 @@
 }
 
 .answerCard .questionContainer p {
-    color: #333;
+    color: white;
     font-size: 0.85rem;
     line-height: 1.6;
     margin: 0;

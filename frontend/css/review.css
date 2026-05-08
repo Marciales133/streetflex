@@ -29,17 +29,20 @@
 .sectionTitle h4 {
     text-align: center;
     white-space: nowrap;
-    color: lightcyan;
+    color: darkslategray;
     margin: 0;
     letter-spacing: 2px;
     text-shadow: 0 0 18px rgba(0, 200, 200, 0.4);
+}
+
+.starFilters label{
+    color: white;
 }
 
 /* ── Star filter — active state (adds to existing .starFilters rules) ──────── */
 .starFilters label.active {
     background-color: rgba(255, 217, 0, 0.65);
     box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.5);
-    color: #1a1a00;
     font-weight: 900;
     padding: .2rem;
     border-radius: .5rem;
