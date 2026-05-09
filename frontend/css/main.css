@@ -318,7 +318,6 @@ header{
     border: solid darkslategray;
     border-radius: 100%;
 }.navBurger{
-    padding: .25rem .5rem;
     width: fit-content;
     aspect-ratio: 1/1;
     display: flex;
@@ -335,8 +334,8 @@ header{
 }.navBurger i.active{
     color: darkcyan;
 }.userProfileContainer{
-    display: grid;
-    grid-template-columns: auto max-content;
+    display: flex;
+    justify-content: right;
     gap: .5rem;
     color: white;
     align-items: center;
@@ -574,8 +573,8 @@ section  h2 {
 }
 .sectionTitleLines{
     flex: 1;
-    height: 3px;
-    background-color: rgb(255, 255, 255) !important;
+    height: 3px !important;
+    background: rgb(255, 255, 255) !important;
 }
 
 .contentContainer .swiper-slide{

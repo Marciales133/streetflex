@@ -64,6 +64,8 @@ async function handleLogin() {
         setTimeout(()=>{
             if(result.path != ""){
                 window.location.href = result.path;
+            }else{
+                window.location.href = "../index.html";
             }
         },3000)
         return;
@@ -647,6 +649,9 @@ async function card4Confirm() {
         animEnd(card4, () => {
             card4.style.opacity = "0";
             showSuccess();
+            setTimeout(() => {
+                window.location.href = "../index.html";
+            }, 3000);
         });
 
     } catch (err) {

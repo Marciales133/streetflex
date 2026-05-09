@@ -21,8 +21,8 @@
 
 .sectionTitleLines {
     flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, darkslategray, transparent);
+    height: 2px;
+    background: white;
 }
 
 .sectionTitle h2,

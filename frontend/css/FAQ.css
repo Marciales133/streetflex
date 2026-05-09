@@ -63,7 +63,7 @@ section > *{
 }
 
 .answerCard .questionContainer p {
-    color: white;
+    color: black;
     font-size: 0.85rem;
     line-height: 1.6;
     margin: 0;
@@ -85,14 +85,14 @@ section > *{
     font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: rgba(0,0,0,0.45);
+    color: rgba(0, 0, 0, 0.7) !important;
     margin: 0;
     text-shadow: none;
 }
 
 .myQDate {
     font-size: 0.65rem;
-    color: rgba(0,0,0,0.35);
+    color: rgb(0, 0, 0);
 }
 
 /* Tags */
@@ -130,7 +130,7 @@ section > *{
     font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: rgba(0,0,0,0.45);
+    color: rgba(0, 0, 0, 0.7) !important;
     margin: 0;
     text-shadow: none;
 }
@@ -170,7 +170,7 @@ section > *{
 }
 
 .myQAnswer.pending p {
-    color: rgba(0,0,0,0.4);
+    color: rgb(0, 0, 0);
     font-size: 0.8rem;
     font-style: italic;
     margin: 0;
@@ -288,6 +288,7 @@ section > *{
 }
 .refundForm p{
     margin-bottom: .3rem;
+    color: black;
 }
 .refundForm input, .refundForm textarea, .refundForm .input{
     width: 100%;

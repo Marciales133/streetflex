@@ -27,14 +27,14 @@
 .notif-unread-label {
     font-size: .8rem;
     color: lightgray;
-    background: rgba(0,139,139,0.18);
+    background: rgba(0,139,139,0.25);
     border: 1px solid darkcyan;
     padding: .3rem .75rem;
     border-radius: .4rem;
     margin: 0;
 }
 .notif-unread-label span {
-    color: darkcyan;
+    color: rgb(0, 255, 255);
     font-weight: 700;
 }
 .notif-mark-all-btn {

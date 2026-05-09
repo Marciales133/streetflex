@@ -2,9 +2,12 @@
     width: 100%;
 }.heroImageContainer{
     width: 100% !important;
-    aspect-ratio: 3/4;
+    aspect-ratio: 19/20;
     background-color: none;
     border: none;
+}
+.heroSwiper{
+    padding-bottom: 0 !important;
 }
 
 
@@ -35,12 +38,12 @@
 @media (min-width: 1200px) {
     .heroImageContainer{
         width: 85% !important;
-        aspect-ratio: 18/9;
+        aspect-ratio: 21/9;
     }
 }
 
 @media (min-width: 1920px) {
     .heroImageContainer{
-        aspect-ratio: 21/9;
+        aspect-ratio: 28/9;
     }
 }
