@@ -121,6 +121,8 @@ async function createOrder(req, res) {
         }
 
         // ── Validate discount code if provided ────────────────────────────────
+        const serverSubtotal = validatedItems.reduce((sum, i) => sum + i.subtotal, 0);
+
         if (discount_code) {
             const discount = await Discount.findOne({
                 code:      discount_code.toUpperCase().trim(),
@@ -142,17 +144,16 @@ async function createOrder(req, res) {
                 dbSession.endSession();
                 return res.status(400).json({ message: "Discount code has reached its usage limit." });
             }
-            if (subtotal < discount.min_order_amount) {
+            if (serverSubtotal < discount.min_order_amount) {   // ← uses serverSubtotal
                 await dbSession.abortTransaction();
                 dbSession.endSession();
                 return res.status(400).json({
                     message: `Minimum order amount for this code is ₱${discount.min_order_amount}.`,
                 });
             }
-
-            discount_amount = discount.type === "percent"
-                ? Math.round(subtotal * (discount.value / 100))
-                : discount.value;
+                discount_amount = discount.type === "percent"
+                    ? Math.round(serverSubtotal * (discount.value / 100))   // ← uses serverSubtotal
+                    : discount.value;
 
             // increment used_count
             await Discount.updateOne(
@@ -162,13 +163,13 @@ async function createOrder(req, res) {
             );
         }
 
-        const finalTotal = subtotal - discount_amount;
+        const finalTotal = serverSubtotal - discount_amount;
 
         // ── Create order ──────────────────────────────────────────────────────
         const [order] = await Order.create(
             [{
                 user_id:          req.user._id,
-                subtotal,
+                subtotal: serverSubtotal,
                 discount_amount,
                 total:            finalTotal,
                 discount_code:    discount_code || null,

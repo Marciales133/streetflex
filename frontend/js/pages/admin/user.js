@@ -125,7 +125,7 @@ function handleSuggestions(e) {
 
     if (!q) {
         hideSuggestions();
-        activeFilter ? fetchUsers(1) : fetchUsers(1);  // fetchUsers already checks activeFilter
+        fetchUsers(1);  
         return;
     }
 

@@ -75,15 +75,28 @@ async function getProductBySlug(req, res) {
         const review_summary = reviewAgg[0]
             ? { count: reviewAgg[0].count, avg: Math.round(reviewAgg[0].avg * 10) / 10 }
             : { count: 0, avg: 0 };
+            
+        let discounted_price = null;
+        let discount = null;
+        if (product.discount_code) {
+            const { Discount } = await import("../models/modelCenter.js");
+            discount = await Discount.findOne({ code: product.discount_code, is_active: true }).lean();
+            if (discount) {
+                discounted_price = discount.type === "percent"
+                    ? Math.round(product.base_price * (1 - discount.value / 100))
+                    : Math.max(0, product.base_price - discount.value);
+            }
+        }
 
         return res.status(200).json({
             product: {
                 ...product,
-                category: product.category_id,   // already populated
+                category: product.category_id,
                 review_summary,
+                discount,
+                discounted_price,
             },
         });
-
     } catch (err) {
         console.error("[getProductBySlug]", err);
         return res.status(500).json({ message: "Something went wrong." });

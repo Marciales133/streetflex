@@ -96,7 +96,7 @@ body{
     padding-bottom: .5rem;
 }.image-container{
     width: 50px !important;
-    min-width: none;
+    min-width: 0;
 }.cardAddressAndQuestion{
     display: grid;
     grid-template-rows: max-content 1fr max-content;

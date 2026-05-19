@@ -165,10 +165,12 @@ body{
 
 /* Order detail dialog */
 #orderDetailDialog {
-    width: 90%;
+    width: 90vw;
+    display: block;
     background: #f9f9f9;
     max-width: 560px;
     max-height: 85vh;
+    min-width: 0 !important;
     border-radius: 1rem;
     overflow: hidden;
     padding: 0;

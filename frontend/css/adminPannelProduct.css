@@ -63,6 +63,9 @@ header{
     color: black;
     border: 1px solid #333;
     border-radius: .3rem;
+    max-height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* OPTIONS */
@@ -122,6 +125,10 @@ header{
     background: rgb(210, 210, 210);
     transition: all .3s ease-in-out;
     z-index: 13;
+}#formWrapperStep4{
+    background: rgb(192, 192, 192);
+    transition: all .2s ease-in-out;
+    z-index: 14;
 }.formWrapper.show{
     transform: translateX(0);
 }.formNav{

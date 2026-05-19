@@ -223,7 +223,16 @@ function buildOrderCard(order) {
 
         <div class="orderCardFooter">
             <div class="orderTotalBlock">
-                <p class="orderTotalLabel">Total${order.discount_amount > 0 ? " (after discount)" : ""}</p>
+                ${order.discount_amount > 0 ? `
+                    <p class="orderSubtotalLabel">
+                        Subtotal: <span class="orderSubtotalValue">${formatPrice(order.subtotal)}</span>
+                    </p>
+                    <p class="orderDiscountLabel">
+                        Discount (${order.discount_code}): 
+                        <span class="orderDiscountValue">− ${formatPrice(order.discount_amount)}</span>
+                    </p>
+                ` : ""}
+                <p class="orderTotalLabel">Total</p>
                 <p class="orderTotalValue">${formatPrice(order.total)}</p>
             </div>
             <div class="orderCTAGroup">

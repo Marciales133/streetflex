@@ -1,4 +1,5 @@
 import { Wishlist, Product } from "../models/modelCenter.js";
+import { enrichWithDiscounts } from "../utils/discountUtils.js";
 
 // =============================================================================
 // TOGGLE WISHLIST  (requireAuth — customers only, not guests)
@@ -188,10 +189,11 @@ async function getWishlist(req, res) {
             is_active:  true,
             deleted_at: null,
         })
-        .select("_id name slug base_price is_preorder images variants")
+        .select("_id name slug base_price is_preorder images variants discount_code")
         .lean();
  
-        const productMap = new Map(products.map(p => [String(p._id), p]));
+        const enrichedProducts = await enrichWithDiscounts(products);
+        const productMap = new Map(enrichedProducts.map(p => [String(p._id), p]));
  
         // ── Build ordered items, skip unavailable products ────────────────────
         const activeItems = wishlist.items

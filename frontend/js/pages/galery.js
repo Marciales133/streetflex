@@ -474,6 +474,7 @@ function buildGalleryCard(product) {
     const badges = [];
     if (product.is_preorder)  badges.push(`<span class="galleryBadge badge-preorder">Preorder</span>`);
     else if (isOos)           badges.push(`<span class="galleryBadge badge-oos">Out of Stock</span>`);
+    if (product.discount_code) badges.push(`<span class="galleryBadge badge-discount"><i class="fa-solid fa-tag"></i> ${product.discount_code}</span>`);
 
     // Action buttons
     const actionType  = product.is_preorder ? "preorder" : "order";
@@ -491,7 +492,7 @@ function buildGalleryCard(product) {
         </div>
         <div class="galleryCardBody">
             <p class="galleryCardName" title="${product.name}">${product.name}</p>
-            <p class="galleryCardPrice">${price}</p>
+            <p class="galleryCardPrice">${formatPriceWithDiscount(product)}</p>
             <div class="galleryCardColors">${colorDotsHTML}</div>
             <div class="galleryCardSizes">${sizesHTML}</div>
             <div class="galleryCardActions">

@@ -176,7 +176,10 @@ function openWishDialog(product) {
 
     // Name + base price
     d.querySelector(".wishCtaName").textContent  = product.name;
-    d.querySelector(".wishCtaPrice").textContent = formatPrice(product.base_price);
+    d.querySelector(".wishCtaPrice").innerHTML = product.discounted_price
+    ? `<span class="priceOriginal">${formatPrice(product.base_price)}</span>
+        <span class="priceDiscounted">${formatPrice(product.discounted_price)}</span>`
+    : formatPrice(product.base_price);
 
     // Colors + sizes
     populateWishColors(product.variants);
@@ -234,8 +237,13 @@ function selectWishVariant(variantId, variants) {
         span.classList.toggle("selected", span.dataset.variantId === String(variantId)));
 
     // Update price
-    const price = wishDialog.product.base_price + (variant.price_modifier || 0);
-    d.querySelector(".wishCtaPrice").textContent = formatPrice(price);
+    const base         = wishDialog.product.discounted_price ?? wishDialog.product.base_price;
+    const finalPrice   = base + (variant.price_modifier || 0);
+    const originalPrice = wishDialog.product.base_price + (variant.price_modifier || 0);
+    d.querySelector(".wishCtaPrice").innerHTML = wishDialog.product.discounted_price
+        ? `<span class="priceOriginal">${formatPrice(originalPrice)}</span>
+        <span class="priceDiscounted">${formatPrice(finalPrice)}</span>`
+        : formatPrice(finalPrice);
 
     // Cap qty
     const product  = wishDialog.product;
@@ -411,7 +419,7 @@ function buildWishCard(item) {
         </div>
         <div class="wishCardBody">
             <p class="productName" title="${product.name}">${product.name}</p>
-            <p class="productPrice">${price}</p>
+            <p class="productPrice">${formatPriceWithDiscount(product)}</p>
         </div>`;
 
     // Remove button

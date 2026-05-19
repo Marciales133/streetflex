@@ -103,12 +103,12 @@ async function updateOrderStatus(req, res) {
         }
 
         const old_status = order.status;
-        // inside updateOrderStatus, after order.status = new_status
-        if (new_status === "confirmed") {
+        // add inside updateOrderStatus, before order.status = new_status:
+        if (new_status === "cancelled" && ["confirmed", "processing", "to_be_delivered"].includes(old_status)) {
             for (const item of order.items) {
                 await Product.updateOne(
                     { _id: item.product_id, "variants._id": item.variant_id },
-                    { $inc: { "variants.$.stock": -item.quantity } }
+                    { $inc: { "variants.$.stock": item.quantity } }
                 );
                 await Product.syncTotalStock(item.product_id);
             }

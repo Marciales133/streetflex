@@ -392,6 +392,13 @@ function renderProductSlides(wrapper, products) {
         const hearted     = state.wishlistedIds.has(String(product._id));
         const heartClass  = hearted ? "fa-solid fa-heart" : "fa-regular fa-heart";
 
+        // ── Discount badge ────────────────────────────────────────────────────
+        const discountBadge = product.discount_code
+            ? `<span class="productDiscountBadge">
+                   <i class="fa-solid fa-tag"></i> ${product.discount_code}
+               </span>`
+            : "";
+
         const slide = document.createElement("div");
         slide.className = "swiper-slide";
         const itemUrl = buildItemUrl(product.slug);
@@ -400,6 +407,7 @@ function renderProductSlides(wrapper, products) {
                 <a href="${itemUrl}" class="productCardImgLink">
                     <div class="image-container productImage">
                         <img class="img" src="${primaryImage}" alt="${product.name}" loading="lazy">
+                        ${discountBadge}
                     </div>
                 </a>
                 <div class="productBody">
@@ -407,7 +415,7 @@ function renderProductSlides(wrapper, products) {
                         <a href="${itemUrl}" class="productCardNameLink">
                             <p class="productName">${product.name}</p>
                         </a>
-                        <b><p class="ProductPrice">${price}</p></b>
+                        <b><p class="ProductPrice">${formatPriceWithDiscount(product)}</p></b>
                     </div>
                     <div class="productBtnContainer">
                         <i class="${heartClass} addToWishlist"
@@ -626,7 +634,14 @@ function openDialog(mode, product) {
     r.itemQty.textContent  = "1";
     populateDialogImages(product.images || []);
     r.productName.textContent = product.name;
-    r.priceName.textContent   = formatPrice(product.base_price);
+
+    // ── show discounted price if available ────────────────────────────────────
+    const displayPrice = product.discounted_price ?? product.base_price;
+    r.priceName.innerHTML = product.discounted_price
+        ? `<span class="priceOriginal">${formatPrice(product.base_price)}</span>
+            <span class="priceDiscounted">${formatPrice(product.discounted_price)}</span>`
+        : formatPrice(product.base_price);
+
     populateColors(product.variants);
     populateSizes(product.variants);
     if (product.variants[0]) selectVariant(product.variants[0]._id, product.variants);
@@ -687,9 +702,15 @@ function selectVariant(variantId, variants) {
     r.sizeWrapper.querySelectorAll("span").forEach(span =>
         span.classList.toggle("selected", span.dataset.variantId === String(variantId)));
 
-    r.priceName.textContent = formatPrice(
-        state.dialog.product.base_price + (variant.price_modifier || 0)
-    );
+    const product    = state.dialog.product;
+    const base       = product.discounted_price ?? product.base_price;
+    const finalPrice = base + (variant.price_modifier || 0);
+
+    
+    r.priceName.innerHTML = product.discounted_price
+        ? `<span class="priceOriginal">${formatPrice(product.base_price + (variant.price_modifier || 0))}</span>
+            <span class="priceDiscounted">${formatPrice(finalPrice)}</span>`
+        : formatPrice(finalPrice);
 
     const mode      = state.dialog.mode;
     const available = mode === "preorder"
@@ -699,7 +720,7 @@ function selectVariant(variantId, variants) {
     setConfirmAvailability(available > 0);
     const currentQty = parseInt(r.itemQty.textContent) || 1;
     if (currentQty > available) r.itemQty.textContent = Math.max(1, available);
-    console.log("base:", state.dialog.product.base_price, "modifier:", variant.price_modifier);
+    
 }
 
 function setConfirmAvailability(isAvailable) {
@@ -866,30 +887,64 @@ async function handlePlaceOrder(product, variantId, quantity, isPreorder) {
         showToast("Please add a shipping address to your account first.", "danger");
         dialogEl.close(); return;
     }
-    const unit_price = product.base_price + (variant.price_modifier || 0);
-    const subtotal   = unit_price * quantity;
+
+    const modifier = variant.price_modifier || 0;
+
+    const base       = product.discounted_price ?? product.base_price;
+    const unit_price_original = product.base_price + modifier;
+    const subtotal            = unit_price_original * quantity;
+    const unit_price_final = (product.discounted_price ?? product.base_price) + modifier;
+    const total            = unit_price_final * quantity;
+
     const body = {
-        items: [{ product_id: product._id, variant_id: variantId, quantity }],
+        items: [{
+            product_id: product._id,
+            variant_id: variantId,
+            quantity:   Number(quantity),
+            unit_price: unit_price_final,   // snapshot agreed price at checkout
+        }],
         shipping_address: {
             recipient:   defaultAddress.recipient,   phone:       defaultAddress.phone,
             line1:       defaultAddress.line1,        line2:       defaultAddress.line2 || "",
             city:        defaultAddress.city,         province:    defaultAddress.province,
             postal_code: defaultAddress.postal_code,  country:     defaultAddress.country || "PH",
         },
-        subtotal, total: subtotal, is_preorder: isPreorder,
+        subtotal,
+        total,
+        is_preorder:   isPreorder,
+        discount_code: product.discount_code || null,
     };
+
+    console.log("[Order Payload]", JSON.stringify(body, null, 2));
+
     try {
-        const res  = await fetch("/api/auth/orders", {
-            method: "POST", headers: { "Content-Type": "application/json" },
+        const res = await fetch("/api/auth/orders", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
         });
-        const data = await res.json();
-        if (!res.ok) { showToast(data.message || "Failed to place order.", "danger"); return; }
+
+        const responseText = await res.text();
+        console.log("[Order Response]", res.status, responseText);
+
+        if (!res.ok) {
+            let msg = "Failed to place order.";
+            try { msg = JSON.parse(responseText).message || responseText; } catch (_) {}
+            showToast(msg, "danger");
+            return;
+        }
+
         showToast(isPreorder ? "Preorder reserved!" : "Order placed!", "success");
         dialogEl.close();
         const onRoot = !window.location.pathname.includes("/pages/");
-        setTimeout(() => { window.location.href = onRoot ? "./pages/orders.html" : "./orders.html"; }, 1500);
-    } catch (err) { console.error("[handlePlaceOrder]", err); showToast("Something went wrong.", "danger"); }
+        setTimeout(() => {
+            window.location.href = onRoot ? "./pages/orders.html" : "./orders.html";
+        }, 1500);
+
+    } catch (err) {
+        console.error("[handlePlaceOrder]", err);
+        showToast("Something went wrong.", "danger");
+    }
 }
 
 // =============================================================================
@@ -929,6 +984,14 @@ function safeParseProduct(el) {
         try { return JSON.parse(decode(el.parentElement?.dataset?.product || "")); }
         catch { return null; }
     }
+}
+
+function formatPriceWithDiscount(product) {
+    if (!product.discounted_price) return `<span class="priceOnly">${formatPrice(product.base_price)}</span>`;
+    return `
+        <span class="priceOriginal">${formatPrice(product.base_price)}</span>
+        <span class="priceDiscounted">${formatPrice(product.discounted_price)}</span>
+    `;
 }
 
 function formatPrice(amount) {

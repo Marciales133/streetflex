@@ -106,8 +106,13 @@ function buildCartCard(item) {
             </div>
             ${stockBadge}
             <div class="cartItemPriceRow">
-                <p class="cartItemPrice">${formatPrice(item.unit_price)}</p>
-                <p class="cartItemSubtotal">= ${formatPrice(subtotal)}</p>
+                <p class="cartItemPrice">
+                    ${item.discounted_price
+                        ? `<span class="priceOriginal">${formatPrice(item.unit_price)}</span>
+                        <span class="priceDiscounted">${formatPrice(item.discounted_price)}</span>`
+                        : formatPrice(item.unit_price)}
+                </p>
+                <p class="cartItemSubtotal">= ${formatPrice((item.discounted_price ?? item.unit_price) * item.quantity)}</p>
             </div>
             <div class="cartQtyRow">
                 <div class="cartQtyControls">
@@ -190,7 +195,7 @@ async function changeQty(item, delta, cardEl) {
         if (qtyVal)    qtyVal.textContent = newQty;
         if (minusBtn)  minusBtn.disabled  = newQty <= 1;
         if (plusBtn)   plusBtn.disabled   = newQty >= maxAvail;
-        if (subtotalEl) subtotalEl.textContent = `= ${formatPrice(item.unit_price * newQty)}`;
+        if (subtotalEl) subtotalEl.textContent = `= ${formatPrice((item.discounted_price ?? item.unit_price) * newQty)}`;
 
         // Refresh checkout total if this item is checked
         if (checkedIds.has(String(item._id))) updateCheckoutBar();
@@ -348,7 +353,7 @@ function updateCheckoutBar() {
 
     checkoutBar.classList.add("visible");
 
-    const total = selected.reduce((sum, i) => sum + i.unit_price * i.quantity, 0);
+    const total = selected.reduce((sum, i) => sum + (i.discounted_price ?? i.unit_price) * i.quantity, 0);
     if (checkoutCount) checkoutCount.textContent = `${selected.length} selected`;
     if (checkoutTotal) checkoutTotal.textContent = formatPrice(total);
 
@@ -448,6 +453,10 @@ async function placeCartOrder(items, isPreorder) {
     const defaultAddress = state.user.addresses.find(a => a.is_default && !a.deleted_at);
     const subtotal = items.reduce((sum, i) => sum + i.unit_price * i.quantity, 0);
 
+    // use discount_code only if all selected items share the same one
+    const discountCodes = [...new Set(items.map(i => i.discount_code).filter(Boolean))];
+    const discount_code = discountCodes.length === 1 ? discountCodes[0] : null;
+
     const body = {
         items: items.map(i => ({
             product_id: i.product_id,
@@ -464,9 +473,10 @@ async function placeCartOrder(items, isPreorder) {
             postal_code: defaultAddress.postal_code,
             country:     defaultAddress.country || "PH",
         },
-        subtotal,
-        total: subtotal,
-        is_preorder: isPreorder,
+        subtotal,       
+        total: subtotal,  
+        is_preorder:   isPreorder,
+        discount_code: discount_code || null,
     };
 
     try {

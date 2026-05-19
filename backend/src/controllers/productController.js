@@ -82,8 +82,8 @@ async function searchProducts(req, res) {
     try {
         const filter = { deleted_at: null };
 
-        if (req.query.category) filter.category_id = req.query.category;
-        if (req.query.tag) filter.tag_ids = req.query.tag;
+        if (req.query.category) filter.category_id = new mongoose.Types.ObjectId(req.query.category);
+        if (req.query.tag)      filter.tag_ids     = new mongoose.Types.ObjectId(req.query.tag);
         if (active === "true")  filter.is_active      = true;
         if (active === "false") filter.is_active      = false;
         if (preorder === "true")  filter.is_preorder  = true;
@@ -219,6 +219,7 @@ async function editProduct(req, res) {
     const ALLOWED = [
         "name", "slug", "description", "base_price", "weight_grams",
         "category_id", "is_active", "is_preorder", "tag_ids", "images", "variants",
+        "discount_code",   // add this
     ];
 
     const updates = {};

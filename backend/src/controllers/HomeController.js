@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Product, Review, Session, User, Cart, Wishlist, Order } from "../models/modelCenter.js";
+import { enrichWithDiscounts } from "../utils/discountUtils.js";
 
 // =============================================================================
 // GET SESSION  (public)
@@ -63,7 +64,7 @@ async function getNewArrivals(req, res) {
             deleted_at: null,
             // FIX: no total_stock filter — show all active products
         })
-        .select("_id name slug base_price is_preorder images variants")
+        .select("_id name slug base_price is_preorder images variants discount_code")
         .sort({ createdAt: -1 })
         .limit(limit)
         .lean();
@@ -73,7 +74,8 @@ async function getNewArrivals(req, res) {
             variants: p.variants.filter(v => v.is_active && !v.deleted_at),
         }));
 
-        return res.status(200).json({ products: cleaned });
+        const enriched = await enrichWithDiscounts(cleaned);
+        return res.status(200).json({ products: enriched });
 
     } catch (err) {
         console.error("[getNewArrivals]", err);
@@ -163,7 +165,7 @@ async function getPopularProducts(req, res) {
                 is_active:  true,
                 deleted_at: null,
             })
-            .select("_id name slug base_price is_preorder images variants")
+            .select("_id name slug base_price is_preorder images variants discount_code")
             .lean();
 
             // Restore sort order from scoreMap (find() doesn't preserve $in order)
@@ -181,7 +183,7 @@ async function getPopularProducts(req, res) {
                 is_active:  true,
                 deleted_at: null,
             })
-            .select("_id name slug base_price is_preorder images variants")
+            .select("_id name slug base_price is_preorder images variants discount_code")
             .sort({ createdAt: -1 })
             .limit(limit - products.length)
             .lean();
@@ -195,7 +197,8 @@ async function getPopularProducts(req, res) {
             variants: (p.variants || []).filter(v => v.is_active && !v.deleted_at),
         }));
 
-        return res.status(200).json({ products: cleaned });
+        const enriched = await enrichWithDiscounts(cleaned);
+        return res.status(200).json({ products: enriched });
 
     } catch (err) {
         console.error("[getPopularProducts]", err);

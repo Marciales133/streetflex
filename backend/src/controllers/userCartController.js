@@ -1,5 +1,5 @@
 import { Cart, Product } from "../models/modelCenter.js";
-
+import { enrichWithDiscounts } from "../utils/discountUtils.js";
 // =============================================================================
 // ADD TO CART  (requireAuth — guests included via guest session)
 // =============================================================================
@@ -237,22 +237,21 @@ async function getCart(req, res) {
         const products = await Product.find({
             _id: { $in: productIds },
         })
-        .select("_id slug is_preorder variants is_active deleted_at")
+        .select("_id slug is_preorder variants is_active deleted_at base_price discount_code")
         .lean();
 
-        const productMap = new Map(products.map(p => [String(p._id), p]));
-
+        const enrichedProducts = await enrichWithDiscounts(products);
+        const enrichedProductMap = new Map(enrichedProducts.map(p => [String(p._id), p]));
         const enriched = activeItems.map(item => {
-            const product = productMap.get(String(item.product_id));
+            const product = enrichedProductMap.get(String(item.product_id));  // ← changed
             const variant = product?.variants?.find(
                 v => String(v._id) === String(item.variant_id)
             );
 
-            const isDeleted   = !product || product.deleted_at || !product.is_active;
-            const isPreorder  = product?.is_preorder ?? false;
+            const isDeleted  = !product || product.deleted_at || !product.is_active;
+            const isPreorder = product?.is_preorder ?? false;
 
-            const stock = isDeleted
-                ? 0
+            const stock = isDeleted ? 0
                 : isPreorder
                     ? (variant?.preorder?.max_slots ?? 0) - (variant?.preorder?.claimed_slots ?? 0)
                     : (variant?.stock ?? 0);
@@ -261,9 +260,11 @@ async function getCart(req, res) {
                 ...item,
                 slug:               product?.slug ?? null,
                 is_preorder:        isPreorder,
-                stock,                           // 0 means out of stock
+                stock,
                 preorder_available: isPreorder ? stock : null,
                 is_unavailable:     isDeleted || (!isPreorder && !variant?.is_active),
+                discount_code:      product?.discount_code   ?? null,   // ← add
+                discounted_price:   product?.discounted_price ?? null,  // ← add
             };
         });
 

@@ -35,6 +35,9 @@ import {
     deleteReview,
 } from "../controllers/reviewController.js";
 import { getOverview } from "../controllers/overviewController.js";
+import {
+    getDiscounts, getDiscount, createDiscount, editDiscount, deleteDiscount, getDiscountByCode
+} from "../controllers/discountController.js";
 
 
 
@@ -98,5 +101,14 @@ router.delete("/reviews/:id",       requireAuth, requireRole("admin", "super_adm
 // ── Overview ──────────────────────────────────────────────────────────────────
 router.get("/overview", requireAuth, requireRole("admin", "super_admin"), getOverview);
 
+
+// add routes after the Reviews block
+// ── Discounts ─────────────────────────────────────────────────────────────────
+router.get("/discounts",      requireAuth, requireRole("admin", "super_admin"), getDiscounts);
+router.get("/discounts/:id",  requireAuth, requireRole("admin", "super_admin"), getDiscount);
+router.post("/discounts",     requireAuth, requireRole("admin", "super_admin"), createDiscount);
+router.put("/discounts/:id",  requireAuth, requireRole("admin", "super_admin"), editDiscount);
+router.delete("/discounts/:id", requireAuth, requireRole("admin", "super_admin"), deleteDiscount);
+router.get("/discounts/by-code/:code", requireAuth, requireRole("admin", "super_admin"), getDiscountByCode);
 
 export default router;

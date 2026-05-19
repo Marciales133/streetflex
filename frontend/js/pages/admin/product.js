@@ -30,10 +30,16 @@
     const nextToStep3              = document.getElementById("nextToStep3");
     const backToStep1              = document.getElementById("backToStep1");
     const backToStep2              = document.getElementById("backToStep2");
-    const submitProductRegistration = document.getElementById("submitProductRegistration");
+    const moveToStep4 = document.getElementById("moveToStep4");
     const searchInput              = document.getElementById("search");
     const searchButton             = document.getElementById("searchButton");
     const suggestions              = document.getElementById("suggestions");
+
+    
+    const formWrapperStep4    = document.getElementById("formWrapperStep4");
+    const backToStep3Btn      = document.getElementById("backToStep3");
+    const skipDiscountBtn     = document.getElementById("skipDiscount");
+    const submitWithDiscount  = document.getElementById("submitWithDiscount");
 
     // ── Form fields step 1 ───────────────────────────────────────────────────────
     const fieldName        = document.getElementById("fieldName");
@@ -63,6 +69,8 @@
     const addCatBtn = document.getElementById("addCat");
     const tagField  = document.getElementById("tagField");
     const addTagBtn = document.getElementById("addTag");
+
+    let currentDiscountId = null;
 
     // =============================================================================
     // ON LOAD
@@ -519,7 +527,8 @@
             const data = await res.json();
             if (!res.ok) return console.error(data.message);
             formMode = "edit";
-            populateForm(data.product);
+            resetForm();                      // ← add this
+            await populateForm(data.product); // ← add await
             formWrapperStep1.classList.add("show");
         } catch (err) { console.error("[openEditForm]", err); }
     }
@@ -541,9 +550,17 @@
         clearFormErrors();
         // uncheck all tags
         tagSelectContainer.querySelectorAll("input[type=checkbox]").forEach(cb => cb.checked = false);
+        document.getElementById("dCode").value      = "";
+        document.getElementById("dValue").value     = "";
+        document.getElementById("dMinOrder").value  = "";
+        document.getElementById("dMaxUses").value   = "";
+        document.getElementById("dExpiresAt").value = "";
+        document.getElementById("dType").value      = "percent";
+        document.getElementById("dIsActive").checked = true;
+        currentDiscountId = null;
     }
 
-    function populateForm(product) {
+    async function populateForm(product) {
         fieldName.value         = product.name        || "";
         fieldSlug.value         = product.slug        || "";
         fieldDescription.value  = product.description || "";
@@ -583,16 +600,36 @@
             }));
         renderVariantRows();
         clearFormErrors();
+        currentDiscountId = null;
+        if (product.discount_code) {
+            try {
+                const dRes  = await fetch(`/api/admin/discounts/by-code/${product.discount_code}`, { credentials: "include" });
+                const dData = await dRes.json();
+                if (dRes.ok && dData.discount) {
+                    const d = dData.discount;
+                    currentDiscountId = d._id;
+                    document.getElementById("dCode").value     = d.code;
+                    document.getElementById("dType").value     = d.type;
+                    document.getElementById("dValue").value    = d.value;
+                    document.getElementById("dMinOrder").value = d.min_order_amount;
+                    document.getElementById("dMaxUses").value  = d.max_uses ?? "";
+                    document.getElementById("dIsActive").checked = d.is_active;
+                    document.getElementById("dExpiresAt").value  = d.expires_at
+                        ? new Date(d.expires_at).toISOString().slice(0, 16) : "";
+                }
+            } catch (err) { console.error("[populateForm discount]", err); }
+        }
     }
 
     // =============================================================================
     // FORM NAV — steps
     // =============================================================================
     closeForm.addEventListener("click", () => {
-        formWrapperStep1.classList.remove("show");
-        formWrapperStep2.classList.remove("show");
-        formWrapperStep3.classList.remove("show");
-    });
+    formWrapperStep1.classList.remove("show");
+    formWrapperStep2.classList.remove("show");
+    formWrapperStep3.classList.remove("show");
+    formWrapperStep4.classList.remove("show");   // add this
+});
 
     nextToStep2.addEventListener("click", () => {
         if (!validateStep1()) return;
@@ -611,14 +648,52 @@
         formWrapperStep3.classList.remove("show");
     });
 
-    submitProductRegistration.addEventListener("click", async () => {
+
+    moveToStep4.addEventListener("click", () => {
         if (!validateStep1()) {
             formWrapperStep3.classList.remove("show");
             formWrapperStep2.classList.remove("show");
             return;
         }
-        await submitForm();
+        formWrapperStep4.classList.add("show");   // go to step 4 instead of submitting
     });
+
+    backToStep3Btn.addEventListener("click", () => formWrapperStep4.classList.remove("show"));
+
+    skipDiscountBtn.addEventListener("click", async () => {
+        await submitForm(null);   // submit without discount
+    });
+
+    submitWithDiscount.addEventListener("click", async () => {
+        const discount = collectDiscount();
+        if (discount === false) return;   // validation failed
+        await submitForm(discount);
+    });
+
+    function collectDiscount() {
+        const code = document.getElementById("dCode").value.trim();
+        if (!code) return null;   // empty code = no discount, treat like skip
+
+        const value = +document.getElementById("dValue").value;
+        if (!value || value < 0) {
+            const err = document.getElementById("discountFormError");
+            err.textContent = "Value is required if adding a discount.";
+            err.style.display = "block";
+            return false;   // validation failed
+        }
+
+        return {
+            code:             code.toUpperCase(),
+            type:             document.getElementById("dType").value,
+            value,
+            min_order_amount: +document.getElementById("dMinOrder").value || 0,
+            max_uses:         document.getElementById("dMaxUses").value
+                                ? +document.getElementById("dMaxUses").value : null,
+            expires_at:       document.getElementById("dExpiresAt").value
+                                ? new Date(document.getElementById("dExpiresAt").value) : null,
+            is_active:        document.getElementById("dIsActive").checked,
+        };
+    }
 
     // =============================================================================
     // VALIDATION
@@ -813,21 +888,16 @@
     // =============================================================================
     // SUBMIT FORM
     // =============================================================================
-    async function submitForm() {
+    async function submitForm(discount = null) {
         clearFormErrors();
+        
 
-        // upload images first
         const images = await uploadImagesToImageKit();
-        if (images === null) return;  // upload failed, error already shown
+        if (images === null) return;
 
-        // collect variants
         const variants = collectVariants();
-        if (variants === null) {
-            showFormError(formError3, "Each variant needs SKU, size, and color.");
-            return;
-        }
+        if (variants === null) return;
 
-        // collect tag_ids
         const tag_ids = Array.from(tagSelectContainer.querySelectorAll("input[type=checkbox]:checked"))
             .map(cb => cb.value);
 
@@ -840,9 +910,7 @@
             category_id:  fieldCategory.value,
             is_active:    fieldIsActive.checked,
             is_preorder:  fieldIsPreorder.checked,
-            tag_ids,
-            images,
-            variants,
+            tag_ids, images, variants,
         };
 
         try {
@@ -852,22 +920,43 @@
             const method = formMode === "edit" ? "PUT" : "POST";
 
             const res  = await fetch(url, {
-                method,
-                credentials: "include",
-                headers:     { "Content-Type": "application/json" },
-                body:        JSON.stringify(body),
+                method, credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
             });
             const data = await res.json();
+            if (!res.ok) { showFormError(formError3, data.message); return; }
 
-            if (!res.ok) {
-                showFormError(formError3, data.message);
-                return;
+            if (discount) {
+                const dUrl    = currentDiscountId
+                    ? `/api/admin/discounts/${currentDiscountId}`
+                    : "/api/admin/discounts";
+                const dMethod = currentDiscountId ? "PUT" : "POST";
+
+                const dRes  = await fetch(dUrl, {
+                    method: dMethod, credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(discount),
+                });
+                const dData = await dRes.json();
+                if (!dRes.ok) {
+                    showFormError(document.getElementById("discountFormError"),
+                        `Product saved but discount failed: ${dData.message}`);
+                    return;
+                }
+
+                // save the code reference back to the product
+                currentDiscountId = dData.discount._id;
+                await fetch(`/api/admin/products/${data.product._id}`, {
+                    method: "PUT", credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ discount_code: dData.discount.code }),
+                });
             }
 
-            // close all form panels and refresh
-            formWrapperStep1.classList.remove("show");
-            formWrapperStep2.classList.remove("show");
-            formWrapperStep3.classList.remove("show");
+            // close all panels and refresh
+            [formWrapperStep1, formWrapperStep2, formWrapperStep3, formWrapperStep4]
+                .forEach(w => w.classList.remove("show"));
             fetchProducts(currentPage);
 
         } catch (err) {
@@ -938,7 +1027,6 @@
             const name = input.value.trim();
             if (!name) return;
             try {
-                console.log(id);
                 const res  = await fetch(`/api/admin/categories/${id}`, {
                     method: "PUT", credentials: "include",
                     headers: { "Content-Type": "application/json" },
@@ -1028,10 +1116,8 @@
         el.style.display = "block";
     }
     function clearFormErrors() {
-        [formError1, formError2, formError3].forEach(el => {
-            el.textContent   = "";
-            el.style.display = "none";
-        });
+        [formError1, formError2, formError3, document.getElementById("discountFormError")]
+            .forEach(el => { if (el) { el.textContent = ""; el.style.display = "none"; } });
     }
 
     // Expose the main card action function globally

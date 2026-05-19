@@ -189,8 +189,12 @@ function buildOrderCard(order, isPreorder = false) {
                 ${order.discount_code ? `
                 <div class="cardContentAddressfields">
                     <span class="itemLable">Discount</span>
-                    <span>${order.discount_code} · -₱${Number(order.discount_amount).toLocaleString()}</span>
+                    <span style="color:#e63946;">${order.discount_code} · −₱${Number(order.discount_amount).toLocaleString()}</span>
                 </div>` : ""}
+                <div class="cardContentAddressfields" style="border-top: 1px solid #eee; margin-top: 4px; padding-top: 4px;">
+                    <span class="itemLable"><strong>Total</strong></span>
+                    <span><strong>${total}</strong></span>
+                </div>
             </div>
 
             <div class="cardContentItems">
@@ -287,12 +291,20 @@ async function handleOrderAction(btn, card) {
         });
 
         // append new history entry
+        const oldStatus = card.dataset.status;
+        card.dataset.status = newStatus;
+        card.querySelector(".orderStatus").textContent = newStatus;
+        card.querySelector(".cardBtns").innerHTML = buildOrderButtons(newStatus);
+        card.querySelectorAll(".cardBtns .btn").forEach(b => {
+            b.addEventListener("click", () => handleOrderAction(b, card));
+        });
+
         const historyContainer = card.querySelector(".cardContentStatusHistory");
         const entry = document.createElement("div");
         entry.className = "cardContentStatus";
         entry.innerHTML = `
             <span class="status">
-                ${card.dataset.prevStatus || "—"}
+                ${oldStatus}
                 <i class="fa-solid fa-arrow-right"></i>
                 ${newStatus}
             </span>
@@ -300,7 +312,6 @@ async function handleOrderAction(btn, card) {
             <span class="statusDate">${new Date().toLocaleDateString("en-PH", { month: "short", day: "numeric", year: "numeric" })}</span>
         `;
         historyContainer.appendChild(entry);
-        card.dataset.prevStatus = newStatus;
 
     } catch (err) {
         console.error("[handleOrderAction]", err);
@@ -568,11 +579,9 @@ async function handleRefundAction(refundId, newStatus, adminNote, card) {
         if (!res.ok) return alert(data.message);
 
         // ── Update card in place ──────────────────────────────────────────────
+        const oldRefundStatus = card.dataset.status;
         card.querySelector(".orderStatus").textContent = newStatus;
         card.dataset.status = newStatus;
-
-        const btnsArea = card.querySelector(".cardBtns");
-        if (btnsArea) btnsArea.innerHTML = `<span style="opacity:.6;font-size:.85rem;">Refund ${newStatus}. No further actions.</span>`;
 
         const historyContainer = card.querySelector(".cardContentStatusHistory:last-of-type");
         if (historyContainer) {
@@ -580,7 +589,7 @@ async function handleRefundAction(refundId, newStatus, adminNote, card) {
             entry.className = "cardContentStatus";
             entry.innerHTML = `
                 <span class="status">
-                    pending
+                    ${oldRefundStatus}
                     <i class="fa-solid fa-arrow-right"></i>
                     ${newStatus}
                 </span>
@@ -638,14 +647,6 @@ window.expandCard = function(button) {
     content.querySelectorAll(".cardBtns .btn").forEach(btn => {
         btn.addEventListener("click", () => {
             handleOrderAction(btn, card);
-            // Update status pill on the original card
-            const newStatus = btn.dataset.nextStatus;
-            if (newStatus) {
-                card.querySelector(".orderStatus").textContent = newStatus;
-                card.dataset.status = newStatus;
-                // Refresh buttons on original card's hidden content too
-                card.querySelector(".cardBtns").innerHTML = buildOrderButtons(newStatus);
-            }
             dialog.close();
             dialog.remove();
         });

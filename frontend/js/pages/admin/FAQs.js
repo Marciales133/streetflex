@@ -154,7 +154,7 @@ function buildCard(question, isAnswered = false, isHidden = false) {
                 type="text"
                 class="answerToQuestion"
                 placeholder="${isAnswered ? "Edit the answer..." : "Write an answer..."}"
-                value="${answerText}"
+                value="${answerText.replace(/"/g, '&quot;')}"
             >
             <button class="${isAnswered ? "editBtn" : "submitBtn"} btn">
                 ${isAnswered ? "Edit Answer" : "Submit Answer"}
@@ -397,7 +397,12 @@ async function saveTags(questionId, tags, card) {
             span.textContent = t;
             tagContainer.appendChild(span);
         });
-        tagContainer.appendChild(editBtn);
+        const newEditBtn = document.createElement("span");
+        newEditBtn.className = "btn editTagsBtn";
+        newEditBtn.style.cssText = editBtn.style.cssText;
+        newEditBtn.innerHTML = editBtn.innerHTML;
+        newEditBtn.addEventListener("click", () => openTagDialog(questionId, tags, card));
+        tagContainer.appendChild(newEditBtn);
     } catch (err) {
         console.error("[saveTags]", err);
         alert("Network error. Please try again.");

@@ -963,8 +963,62 @@ footer .footerCardBody .btn{width: fit-content;}
     font-weight: 600;
 }
 
+.productImage {
+    position: relative;
+}
 
+.productDiscountBadge {
+    position:      absolute;
+    top:           6px;
+    left:          6px;
+    background:    #e63946;
+    color:         #fff;
+    font-size:     0.65rem;
+    font-weight:   700;
+    padding:       2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+    z-index:       2;
+    display:       flex;
+    align-items:   center;
+    gap:           4px;
+    text-transform: uppercase;
+}
+.pdDiscountBadge{
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    padding: .025rem .5rem;
+    border-radius: 1rem;
+}
+.priceOriginal {
+    text-decoration: line-through;
+    color:           #999;
+    font-size:       0.85em;
+    margin-right:    4px;
+}
 
+.priceDiscounted {
+    color:       #e63946;
+    font-weight: 700;
+}
+
+.pdPriceStrike {
+    text-decoration: line-through;
+    color:           #999 !important;
+    font-size:       0.9em;
+}
+
+.pdPriceOff {
+    color:       #e63946;
+    font-weight: 700;
+}
+.orderSubtotalLabel, .orderDiscountLabel{
+    color: lightblue;
+}.orderDiscountValue{
+    color: red;
+}
 
 @media (min-width: 480px) {
     .userNameAndEmail{

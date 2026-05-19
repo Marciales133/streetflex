@@ -68,6 +68,7 @@ const ProductSchema = new Schema(
     is_active:    { type: Boolean, default: true },
     is_preorder:  { type: Boolean, default: false },
     deleted_at:   { type: Date, default: null },
+    discount_code: { type: String, default: null },  
 
     tag_ids:   [{ type: Schema.Types.ObjectId, ref: "Tag" }],   // authoritative
     tag_names: [{ type: String }],                               // denormalized fast filter

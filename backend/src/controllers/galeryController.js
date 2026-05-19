@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Product, Category, Tag } from "../models/modelCenter.js";
+import { enrichWithDiscounts } from "../utils/discountUtils.js";
 
 // =============================================================================
 // GET FILTER META  (public)
@@ -143,7 +144,7 @@ async function getGalleryProducts(req, res) {
         if (!colorList.length && !sizeList.length) {
             const [products, total] = await Promise.all([
                 Product.find(match, q?.trim() ? { score: { $meta: "textScore" } } : undefined)
-                    .select("_id name slug base_price is_preorder total_stock images variants category_id tag_names")
+                    .select("_id name slug base_price is_preorder total_stock images variants category_id tag_names discount_code")
                     .sort(q?.trim() ? { score: { $meta: "textScore" } } : sortStage)
                     .skip(skip)
                     .limit(limit)
@@ -151,11 +152,8 @@ async function getGalleryProducts(req, res) {
                 Product.countDocuments(match),
             ]);
 
-            return res.status(200).json({
-                products: cleanVariants(products),
-                total, page, limit,
-                has_more: skip + limit < total,
-            });
+            const enriched = await enrichWithDiscounts(cleanVariants(products));
+            return res.status(200).json({ products: enriched, total, page, limit, has_more: skip + limit < total });
         }
 
         // Variant-level filter path — aggregate
@@ -187,7 +185,7 @@ async function getGalleryProducts(req, res) {
                     { $project: {
                         name: 1, slug: 1, base_price: 1, is_preorder: 1,
                         total_stock: 1, images: 1, variants: 1,
-                        category_id: 1, tag_names: 1,
+                        category_id: 1, tag_names: 1, discount_code: 1, 
                     }},
                 ],
                 count: [{ $count: "total" }],
@@ -198,11 +196,9 @@ async function getGalleryProducts(req, res) {
         const products = result?.data  || [];
         const total    = result?.count?.[0]?.total || 0;
 
-        return res.status(200).json({
-            products: cleanVariants(products),
-            total, page, limit,
-            has_more: skip + limit < total,
-        });
+        const enriched = await enrichWithDiscounts(cleanVariants(products));
+        return res.status(200).json({ products: enriched, total, page, limit, has_more: skip + limit < total });
+
 
     } catch (err) {
         console.error("[getGalleryProducts]", err);

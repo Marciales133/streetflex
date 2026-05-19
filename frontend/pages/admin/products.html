@@ -254,7 +254,30 @@
             </div>
             <div class="formNav">
                 <button id="backToStep2" class="btn">Back</button>
-                <button id="submitProductRegistration" class="btn">Submit</button>
+                <button id="moveToStep4" class="btn">next</button>
+            </div>
+        </div>
+        <div id="formWrapperStep4" class="formWrapper">
+            <h4>SECTION 4 — DISCOUNT (Optional)</h4>
+            <div class="formBody">
+                <label>Code <input type="text" id="dCode" placeholder="SUMMER20"></label>
+                <label>Type
+                    <select id="dType">
+                        <option value="percent">Percent (%)</option>
+                        <option value="fixed">Fixed (₱)</option>
+                    </select>
+                </label>
+                <label>Value <input type="number" id="dValue" min="0" placeholder="20"></label>
+                <label>Min Order (₱) <input type="number" id="dMinOrder" min="0" placeholder="0"></label>
+                <label>Max Uses <input type="number" id="dMaxUses" placeholder="Leave blank = unlimited"></label>
+                <label>Expires At <input type="datetime-local" id="dExpiresAt"></label>
+                <label><input type="checkbox" id="dIsActive" checked> Active</label>
+                <small id="discountFormError" style="color:red;display:none;"></small>
+            </div>
+            <div class="formNav">
+                <button id="backToStep3" class="btn">Back</button>
+                <button id="skipDiscount" class="btn">Skip</button>
+                <button id="submitWithDiscount" class="btn">Submit</button>
             </div>
         </div>
     </div>

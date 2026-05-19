@@ -30,20 +30,19 @@
 @media (min-width: 1024px) {
     .heroImageContainer{
         margin-inline: auto;
-        width: 85% !important;
-        aspect-ratio: 16/9;
+        width: 87% !important;
+        aspect-ratio: 16/8;
     }
 }
 
 @media (min-width: 1200px) {
     .heroImageContainer{
-        width: 85% !important;
-        aspect-ratio: 21/9;
+        aspect-ratio: 16/9;
     }
 }
 
 @media (min-width: 1920px) {
     .heroImageContainer{
-        aspect-ratio: 28/9;
+        aspect-ratio: 21/9;
     }
 }

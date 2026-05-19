@@ -11,22 +11,36 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: max-content max-content;
-    gap: 1rem;
+    gap: 0rem;
     text-align: center;
     cursor: pointer;
+    padding: .5rem 0rem 0rem 0rem;
 }
 .cardHeader > h5{
     opacity: .8;
 }
 .cardBody > p{
     font-weight: bolder;
-    font-size: 3rem;
+    font-size: 2rem;
     text-shadow: -1px 2px 2px darkslategray;
 }
-
+.groupLabel {
+    width: 100%;
+    margin: 1.5rem 0 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(0,0,0,0.4);
+    color: white;
+    font-size: 1.1rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.groupCards:first-of-type {
+    margin-top: 0;
+}
 .groupCards{
     display: grid;
     gap: 1rem;
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
 }

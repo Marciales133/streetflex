@@ -145,6 +145,7 @@ function renderProduct(product) {
                 <div class="pdMeta">
                     ${catName ? `<span class="pdCategory">${catName}</span>` : ""}
                     ${product.is_preorder ? `<span class="pdPreorderTag">Preorder</span>` : ""}
+                    ${product.discount_code ? `<span class="pdDiscountBadge"><i class="fa-solid fa-tag"></i> ${product.discount_code}</span>` : ""}
                 </div>
 
                 <!-- Name -->
@@ -159,7 +160,12 @@ function renderProduct(product) {
 
                 <!-- Price -->
                 <div class="pdPriceRow">
-                    <p class="pdPrice" id="pdPrice">${formatPrice(product.base_price)}</p>
+                    ${product.discounted_price ? `
+                        <p class="pdPrice pdPriceStrike" id="pdPriceOriginal">${formatPrice(product.base_price)}</p>
+                        <p class="pdPrice pdPriceOff" id="pdPrice">${formatPrice(product.discounted_price)}</p>
+                    ` : `
+                        <p class="pdPrice" id="pdPrice">${formatPrice(product.base_price)}</p>
+                    `}
                     ${product.is_preorder ? `<p class="pdPriceNote">Preorder price</p>` : ""}
                 </div>
 
@@ -378,6 +384,7 @@ function renderProduct(product) {
                     subtotal,
                     total: subtotal,
                     is_preorder: pdProduct.is_preorder,
+                    discount_code: pdProduct.discount_code || undefined, 
                 }),
             });
             const data = await res.json();
@@ -515,11 +522,24 @@ function getVariantAvailable(variant) {
 function updateVariantUI(variant) {
     const available = variant ? getVariantAvailable(variant) : 0;
     const isOos     = available <= 0;
+    const canAct = !!variant && !isOos;
+    const modifier = variant?.price_modifier || 0;
 
+    const pdPriceOriginalEl = document.getElementById("pdPriceOriginal");
+    if (pdPriceOriginalEl) {
+        pdPriceOriginalEl.textContent = formatPrice(pdProduct.base_price + modifier);
+    }
     // Price
     if (pdPriceEl && pdProduct) {
-        const modifier = variant?.price_modifier || 0;
-        pdPriceEl.textContent = formatPrice(pdProduct.base_price + modifier);
+        const base = pdProduct.base_price + modifier;
+        const displayPrice    = (pdProduct.discounted_price ?? pdProduct.base_price) + modifier;
+        const originalPrice   = pdProduct.base_price + modifier;
+        pdPriceEl.textContent = formatPrice(displayPrice);
+
+        const pdPriceOriginalEl = document.getElementById("pdPriceOriginal");
+        if (pdPriceOriginalEl) {
+            pdPriceOriginalEl.textContent = formatPrice(originalPrice);
+        }
     }
 
     // Stock indicator
@@ -552,7 +572,6 @@ function updateVariantUI(variant) {
     if (pdQtyValEl)    pdQtyValEl.textContent  = pdQty;
 
     // CTA buttons
-    const canAct = !!variant && !isOos;
     pdCartBtn?.classList.toggle("disabled", !canAct);
     pdOrderBtn?.classList.toggle("disabled", !canAct);
 }

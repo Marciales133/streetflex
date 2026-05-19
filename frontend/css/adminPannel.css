@@ -244,6 +244,7 @@ body{
 
 header{
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
     background-color: black;
     padding: 5px 1rem;
@@ -283,6 +284,7 @@ header{
 .navContainer{
     height: 100%;
     position: relative;
+    overflow: visible;
 
     grid-column: 1/2;
     grid-row: 2/3;
@@ -300,8 +302,12 @@ header{
     transition: all .5s ease-in-out;
 }nav.active{
     transform: translateX(0rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;         /* Ensure explicit height */
+    max-height: 100vh; 
 }.navigations li{
-    margin-top: 1rem;
+    margin-top: .2rem;
 }.navigations li:first-child{
     margin-top: 0;
 }.navigations li a{
